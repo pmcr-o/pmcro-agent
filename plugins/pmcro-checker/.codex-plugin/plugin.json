@@ -1,0 +1,8 @@
+{
+  "description": "Checks the maker and hands the verdict to the reflector.",
+  "name": "pmcro-checker",
+  "skills": [
+    "./skills/"
+  ],
+  "version": "0.1.0"
+}

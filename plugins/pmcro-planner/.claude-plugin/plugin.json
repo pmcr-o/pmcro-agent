@@ -1,0 +1,8 @@
+{
+  "description": "Plans the minimum work and hands it to the maker.",
+  "name": "pmcro-planner",
+  "skills": [
+    "./skills/"
+  ],
+  "version": "0.1.0"
+}

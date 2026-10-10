@@ -1,0 +1,6 @@
+{
+  "plugin": "example",
+  "skill": "work",
+  "agent": "worker",
+  "registersManifest": false
+}

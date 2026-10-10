@@ -1,0 +1,8 @@
+{
+  "name": "pmcro-orchestrator",
+  "version": "0.1.0",
+  "description": "Bounded goal intake. Accepts or denies a seed, then routes only to registered capabilities.",
+  "skills": [
+    "./skills/"
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "invokeRequires": "listed skill",
+  "goalOpensSkillBody": false,
+  "nextCall": "@checker /pmcro:check"
+}

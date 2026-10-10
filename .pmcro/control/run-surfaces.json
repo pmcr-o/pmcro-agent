@@ -1,0 +1,76 @@
+{
+  "schema": "pmcro.run-surfaces/v1",
+  "authorityChain": "host -> .agents -> .pmcro",
+  "states": [
+    "VALIDATED",
+    "PROJECTED",
+    "ADAPTER-DEPENDENT",
+    "PLANNED"
+  ],
+  "surfaces": [
+    {
+      "id": "manual-powershell",
+      "label": "PowerShell / terminal",
+      "kind": "runtime",
+      "status": "VALIDATED",
+      "entrypoint": ".pmcro/plugins/pmcro-orchestrator/skills/orchestrate/scripts/loop-cycle.ps1",
+      "notes": "Agent and human use the same scripts."
+    },
+    {
+      "id": "grok",
+      "label": "Grok",
+      "kind": "host",
+      "status": "PROJECTED",
+      "projection": ".grok",
+      "tutorial": "docs/tutorials/grok.md",
+      "notes": "Host instructions project .agents; runtime mechanics still come from registered capabilities."
+    },
+    {
+      "id": "claude",
+      "label": "Claude",
+      "kind": "host",
+      "status": "PROJECTED",
+      "projection": ".claude",
+      "notes": "Host view only; no independent authority."
+    },
+    {
+      "id": "cursor",
+      "label": "Cursor",
+      "kind": "host",
+      "status": "PROJECTED",
+      "projection": ".cursor",
+      "notes": "Host view only; no independent authority."
+    },
+    {
+      "id": "github",
+      "label": "GitHub / Copilot-style repo host",
+      "kind": "host",
+      "status": "PROJECTED",
+      "projection": ".github",
+      "notes": "Repository host projection plus Actions validation."
+    },
+    {
+      "id": "desktop-commander",
+      "label": "Desktop Commander",
+      "kind": "runtime-adapter",
+      "status": "VALIDATED",
+      "agent": "desktop-commander-agent",
+      "notes": "Bounded filesystem/process mechanics; agent/manual script parity required."
+    },
+    {
+      "id": "dotnet",
+      "label": ".NET runtime integrations",
+      "kind": "runtime-adapter",
+      "status": "VALIDATED",
+      "agent": "dotnet-agent",
+      "notes": "Pinned upstream dotnet/skills mirror plus PMCR-O wrappers."
+    },
+    {
+      "id": "mcp",
+      "label": "MCP-compatible adapters",
+      "kind": "runtime-adapter",
+      "status": "ADAPTER-DEPENDENT",
+      "notes": "Envelope/routing contract is transport-neutral; concrete MCP servers must be separately registered and granted."
+    }
+  ]
+}

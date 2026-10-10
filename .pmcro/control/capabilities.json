@@ -1,0 +1,81 @@
+{
+  "schema": "pmcro.capabilities/v1",
+  "agent": "pmcro-agent",
+  "executionRule": "registered AND runtime-present AND authorized",
+  "manualParity": {
+    "required": true,
+    "rule": "agent and manual terminal use the same scripts with the same arguments, exit codes, and evidence"
+  },
+  "capabilities": [
+    {
+      "plugin": "pmcro",
+      "skill": "check",
+      "route": "@pmcro-agent /pmcro:check"
+    },
+    {
+      "plugin": "pmcro",
+      "skill": "make",
+      "route": "@pmcro-agent /pmcro:make"
+    },
+    {
+      "plugin": "pmcro",
+      "skill": "plan",
+      "route": "@pmcro-agent /pmcro:plan"
+    },
+    {
+      "plugin": "pmcro",
+      "skill": "reflect",
+      "route": "@pmcro-agent /pmcro:reflect"
+    },
+    {
+      "plugin": "pmcro-checker",
+      "skill": "check",
+      "route": "@pmcro-agent /pmcro-checker:check"
+    },
+    {
+      "plugin": "pmcro-governance",
+      "skill": "govern",
+      "route": "@pmcro-agent /pmcro-governance:govern"
+    },
+    {
+      "plugin": "pmcro-maker",
+      "skill": "make",
+      "route": "@pmcro-agent /pmcro-maker:make"
+    },
+    {
+      "plugin": "pmcro-orchestrator",
+      "skill": "orchestrate",
+      "route": "@pmcro-agent /pmcro-orchestrator:orchestrate"
+    },
+    {
+      "plugin": "pmcro-planner",
+      "skill": "plan",
+      "route": "@pmcro-agent /pmcro-planner:plan"
+    },
+    {
+      "plugin": "pmcro-reflector",
+      "skill": "reflect",
+      "route": "@pmcro-agent /pmcro-reflector:reflect"
+    },
+    {
+      "plugin": "skill-creator",
+      "skill": "create-skill",
+      "route": "@pmcro-agent /skill-creator:create-skill"
+    },
+    {
+      "plugin": "skill-creator",
+      "skill": "delete-skill",
+      "route": "@pmcro-agent /skill-creator:delete-skill"
+    },
+    {
+      "plugin": "skill-creator",
+      "skill": "read-skill",
+      "route": "@pmcro-agent /skill-creator:read-skill"
+    },
+    {
+      "plugin": "skill-creator",
+      "skill": "update-skill",
+      "route": "@pmcro-agent /skill-creator:update-skill"
+    }
+  ]
+}

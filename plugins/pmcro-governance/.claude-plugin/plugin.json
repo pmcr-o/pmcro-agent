@@ -1,0 +1,8 @@
+{
+  "name": "pmcro-governance",
+  "version": "0.1.0",
+  "description": "Boundary over the Agent Governance Toolkit. Does not synthesize an ACS policy.",
+  "skills": [
+    "./skills/"
+  ]
+}

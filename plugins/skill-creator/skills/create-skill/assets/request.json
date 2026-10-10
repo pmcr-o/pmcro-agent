@@ -1,0 +1,7 @@
+{
+  "marketplace": "<marketplace-folder>",
+  "plugin": "example",
+  "skill": "work",
+  "agent": "worker",
+  "description": "Example candidate. Registration is a separate step."
+}

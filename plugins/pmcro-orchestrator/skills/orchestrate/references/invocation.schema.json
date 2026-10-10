@@ -1,0 +1,34 @@
+{
+  "title": "PMCR-O invocation v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "seed",
+    "plugin",
+    "workspace",
+    "grantRefs",
+    "bounds"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "pmcro.invocation.v1"
+    },
+    "seed": {
+      "type": "object"
+    },
+    "plugin": {
+      "description": "Pinned host plugin identity. The retired field name catalogRef is rejected.",
+      "type": "object"
+    },
+    "workspace": {
+      "type": "string"
+    },
+    "grantRefs": {
+      "type": "array"
+    },
+    "bounds": {
+      "type": "object"
+    }
+  }
+}

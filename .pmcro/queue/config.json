@@ -1,0 +1,25 @@
+{
+  "schema": "pmcro.queue/v1",
+  "agent": "pmcro-agent",
+  "transport": "filesystem-spool-v1",
+  "durability": "write-temp-then-atomic-move",
+  "leaseSeconds": 300,
+  "maxAttempts": 3,
+  "retryBaseSeconds": 5,
+  "ordering": "best-effort FIFO by inbox write time; correctness must not depend on global order",
+  "delivery": "at-least-once",
+  "deduplication": "messageId + dedupeDigest; contentDigest protects exact envelope bytes/fields",
+  "allowedKinds": [
+    "pmcro.seed",
+    "orchestrator.route",
+    "planner.plan",
+    "maker.result",
+    "checker.verdict",
+    "reflector.reflect",
+    "agent.handoff",
+    "capability.invoke",
+    "capability.result",
+    "skill.create.request",
+    "system.halt"
+  ]
+}

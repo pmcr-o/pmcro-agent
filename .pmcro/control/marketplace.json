@@ -1,0 +1,51 @@
+{
+  "name": "pmcro-agent",
+  "owner": {
+    "name": "pmcro"
+  },
+  "metadata": {
+    "description": "PMCR-O control-plane agent for bounded autonomous ORCHESTRATE -> PLAN -> MAKE -> CHECK -> REFLECT cycles."
+  },
+  "plugins": [
+    {
+      "name": "pmcro",
+      "source": "./.pmcro/plugins/pmcro",
+      "description": "pmcro capabilities owned by pmcro-agent"
+    },
+    {
+      "name": "pmcro-checker",
+      "source": "./.pmcro/plugins/pmcro-checker",
+      "description": "pmcro-checker capabilities owned by pmcro-agent"
+    },
+    {
+      "name": "pmcro-governance",
+      "source": "./.pmcro/plugins/pmcro-governance",
+      "description": "pmcro-governance capabilities owned by pmcro-agent"
+    },
+    {
+      "name": "pmcro-maker",
+      "source": "./.pmcro/plugins/pmcro-maker",
+      "description": "pmcro-maker capabilities owned by pmcro-agent"
+    },
+    {
+      "name": "pmcro-orchestrator",
+      "source": "./.pmcro/plugins/pmcro-orchestrator",
+      "description": "pmcro-orchestrator capabilities owned by pmcro-agent"
+    },
+    {
+      "name": "pmcro-planner",
+      "source": "./.pmcro/plugins/pmcro-planner",
+      "description": "pmcro-planner capabilities owned by pmcro-agent"
+    },
+    {
+      "name": "pmcro-reflector",
+      "source": "./.pmcro/plugins/pmcro-reflector",
+      "description": "pmcro-reflector capabilities owned by pmcro-agent"
+    },
+    {
+      "name": "skill-creator",
+      "source": "./.pmcro/plugins/skill-creator",
+      "description": "skill-creator capabilities owned by pmcro-agent"
+    }
+  ]
+}

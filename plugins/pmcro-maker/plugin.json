@@ -1,0 +1,8 @@
+{
+  "description": "Makes one accepted plan and hands it to the checker.",
+  "name": "pmcro-maker",
+  "skills": [
+    "./skills/"
+  ],
+  "version": "0.1.0"
+}

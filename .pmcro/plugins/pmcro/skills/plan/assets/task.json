@@ -1,0 +1,5 @@
+{
+  "invokeNextCall": "@maker /pmcro:make",
+  "goalNextCall": "@maker /pmcro:make",
+  "skillCreatorCall": false
+}

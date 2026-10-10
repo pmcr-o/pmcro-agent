@@ -1,0 +1,5 @@
+{
+  "invokeRequires": "message and SKILL.md before its script",
+  "goalRequires": "source recorded and skill-creator not called",
+  "nextCall": "@reflector /pmcro:reflect"
+}

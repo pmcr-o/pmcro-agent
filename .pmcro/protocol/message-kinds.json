@@ -1,0 +1,49 @@
+{
+  "schema": "pmcro.message-kinds/v1",
+  "kinds": {
+    "pmcro.seed": {
+      "owner": "orchestrator",
+      "purpose": "start or continue an autonomous cycle"
+    },
+    "orchestrator.route": {
+      "owner": "orchestrator",
+      "purpose": "admit/deny and route"
+    },
+    "planner.plan": {
+      "owner": "planner",
+      "purpose": "bare-minimum validated plan"
+    },
+    "maker.result": {
+      "owner": "maker",
+      "purpose": "execution result; never verdict"
+    },
+    "checker.verdict": {
+      "owner": "checker",
+      "purpose": "PASS/LOOP/HALT only"
+    },
+    "reflector.reflect": {
+      "owner": "reflector",
+      "purpose": "earned constraint and next seed"
+    },
+    "agent.handoff": {
+      "owner": "orchestrator",
+      "purpose": "cross-agent immutable handoff reference"
+    },
+    "capability.invoke": {
+      "owner": "orchestrator",
+      "purpose": "invoke one registered capability"
+    },
+    "capability.result": {
+      "owner": "domain-agent",
+      "purpose": "return capability evidence"
+    },
+    "skill.create.request": {
+      "owner": "skill-creator-agent",
+      "purpose": "request missing capability generation"
+    },
+    "system.halt": {
+      "owner": "orchestrator",
+      "purpose": "terminal bounded halt with evidence"
+    }
+  }
+}

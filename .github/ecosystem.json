@@ -1,0 +1,79 @@
+{
+  "schema": "pmcro.ecosystem/v1",
+  "generatedFrom": "A:/marketplace/catalog.json",
+  "agents": [
+    {
+      "id": "pmcro-agent",
+      "status": "canonical",
+      "role": "global-orchestrator",
+      "skills": 14
+    },
+    {
+      "id": "csuite-agent",
+      "status": "canonical",
+      "role": "domain-meta-orchestrator",
+      "skills": 14
+    },
+    {
+      "id": "agent-skills-template",
+      "status": "canonical",
+      "role": "template-orchestrator",
+      "skills": 6
+    },
+    {
+      "id": "dotagents-agent",
+      "status": "canonical",
+      "role": "domain-orchestrator",
+      "skills": 5
+    },
+    {
+      "id": "dotnet-agent",
+      "status": "canonical",
+      "role": "domain-orchestrator",
+      "skills": 113
+    },
+    {
+      "id": "github-agent",
+      "status": "canonical",
+      "role": "domain-orchestrator",
+      "skills": 7
+    },
+    {
+      "id": "docker-agent",
+      "status": "canonical",
+      "role": "domain-orchestrator",
+      "skills": 2
+    },
+    {
+      "id": "powershell-agent",
+      "status": "canonical",
+      "role": "domain-orchestrator",
+      "skills": 1
+    },
+    {
+      "id": "filesystem-agent",
+      "status": "canonical",
+      "role": "domain-orchestrator",
+      "skills": 2
+    },
+    {
+      "id": "governance-agent",
+      "status": "canonical",
+      "role": "domain-orchestrator",
+      "skills": 1
+    },
+    {
+      "id": "desktop-commander-agent",
+      "status": "canonical",
+      "role": "domain-orchestrator",
+      "skills": 1
+    },
+    {
+      "id": "skill-creator-agent",
+      "status": "canonical",
+      "role": "domain-orchestrator",
+      "skills": 4
+    }
+  ],
+  "rule": "pmcro-agent is global; each domain agent is an independently addressable orchestrator; skills/scripts are executable capabilities."
+}

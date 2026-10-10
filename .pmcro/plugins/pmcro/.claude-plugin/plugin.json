@@ -1,0 +1,8 @@
+{
+  "name": "pmcro",
+  "version": "0.1.0",
+  "description": "Generic plan, make, check, and reflect capabilities.",
+  "skills": [
+    "./skills/"
+  ]
+}

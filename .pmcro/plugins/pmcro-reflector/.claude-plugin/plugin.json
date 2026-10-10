@@ -1,0 +1,8 @@
+{
+  "description": "Reflects on the cycle. Before and after hooks trigger the orchestrator.",
+  "name": "pmcro-reflector",
+  "skills": [
+    "./skills/"
+  ],
+  "version": "0.1.0"
+}

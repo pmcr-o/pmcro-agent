@@ -1,0 +1,9 @@
+{
+  "source": "intent",
+  "plugin": "dotnet",
+  "skill": "csharp-expert",
+  "goal": "Route csharp-expert from the dotnet skills catalog.",
+  "runId": "0005-invoke",
+  "route": "@orchestrator /dotnet:csharp-expert",
+  "skillCreator": { "present": true, "operations": ["create", "read", "update", "delete"], "call": false }
+}

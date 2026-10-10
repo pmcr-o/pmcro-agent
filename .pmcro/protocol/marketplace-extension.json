@@ -1,0 +1,23 @@
+{
+  "schema": "pmcro.marketplace-extension/v1",
+  "mode": "autonomous-bounded",
+  "questionGate": false,
+  "trigger": "current cycle has checker PASS and reflector nextSeed declares validated marketplace gaps",
+  "steps": [
+    "inventory canonical domain agents",
+    "classify gaps by domain boundary",
+    "reuse registered capabilities first",
+    "route missing capability to skill-creator-agent",
+    "derive <domain>-agent from agent-skills-template",
+    "require full skill shape",
+    "run independent checker",
+    "record earned constraint and unexecuted next seed",
+    "repeat while gaps remain and bounds allow"
+  ],
+  "domainRule": "domain agents are domain orchestrators; specialized child agents exist only when they own independent state, grants, credentials, or trail authority",
+  "stop": [
+    "checker-verified completion with no validated gap",
+    "explicit HALT",
+    "safety/authority bound exhausted"
+  ]
+}

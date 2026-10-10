@@ -1,0 +1,78 @@
+{
+  "apiVersion": "pmcro.dev/v1",
+  "kind": "agent.catalog",
+  "id": "pmcro-agent",
+  "authority": "read-only discovery; execution requires route + grant + runtime",
+  "skills": [
+    {
+      "id": "check",
+      "plugin": "pmcro",
+      "description": "Check an artifact against acceptance criteria and return one verdict."
+    },
+    {
+      "id": "make",
+      "plugin": "pmcro",
+      "description": "Make one accepted plan inside its declared target. Never issue a verdict."
+    },
+    {
+      "id": "plan",
+      "plugin": "pmcro",
+      "description": "Plan the minimum PMCR-O work from a seed and a plugin. Read-only."
+    },
+    {
+      "id": "reflect",
+      "plugin": "pmcro",
+      "description": "Record one earned constraint and one unexecuted next seed."
+    },
+    {
+      "id": "check",
+      "plugin": "pmcro-checker",
+      "description": "Check an artifact against acceptance criteria and return one verdict."
+    },
+    {
+      "id": "govern",
+      "plugin": "pmcro-governance",
+      "description": "Keep PMCR-O workflow YAML separate from an ACS manifest. Refuse synthesized policy."
+    },
+    {
+      "id": "make",
+      "plugin": "pmcro-maker",
+      "description": "Make one accepted plan inside its declared target. Never issue a verdict."
+    },
+    {
+      "id": "orchestrate",
+      "plugin": "pmcro-orchestrator",
+      "description": "Accept or deny a seed, then route a bounded cycle through registered plugin capabilities."
+    },
+    {
+      "id": "plan",
+      "plugin": "pmcro-planner",
+      "description": "Plan the minimum PMCR-O work from a seed and a plugin. Read-only."
+    },
+    {
+      "id": "reflect",
+      "plugin": "pmcro-reflector",
+      "description": "Record one earned constraint and one unexecuted next seed."
+    },
+    {
+      "id": "create-skill",
+      "plugin": "skill-creator",
+      "description": "Create a candidate marketplace skill package with an agent, scripts, references, assets, and tests. Use when a marketplace needs a new skill. Does not register the candidate."
+    },
+    {
+      "id": "delete-skill",
+      "plugin": "skill-creator",
+      "description": "Delete a candidate skill package. Use when a candidate should be removed. Refuses a skill the catalog lists."
+    },
+    {
+      "id": "read-skill",
+      "plugin": "skill-creator",
+      "description": "Retrieve a skill from the catalog, or from a candidate package. Use to read a skill. Does not register the candidate."
+    },
+    {
+      "id": "update-skill",
+      "plugin": "skill-creator",
+      "description": "Update the description of a candidate skill package. Use when a candidate needs a new purpose. Does not change the catalog."
+    }
+  ]
+}
