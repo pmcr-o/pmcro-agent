@@ -62,6 +62,14 @@ def main() -> int:
     check(activation.get("projectionAloneIsActivation") is False, "projection-is-not-activation", failures)
     check(activation.get("bootstrapMustEnterRootSeedAtOrchestrate") is True, "bootstrap-enters-orchestrate", failures)
     check(activation.get("bootstrapMayWidenAuthority") is False, "bootstrap-cannot-widen-authority", failures)
+    check(activation.get("bootstrapMustRunContinuously") is True, "bootstrap-runs-continuously", failures)
+    check(activation.get("bootstrapMayRequireHumanPhaseInvocation") is False, "bootstrap-no-human-phase-gate", failures)
+
+    continuous = contract.get("continuousRun", {})
+    check(continuous.get("enabled") is True, "continuous-run-enabled", failures)
+    check(continuous.get("automaticPhaseTransitions") is True, "automatic-phase-transitions", failures)
+    check(continuous.get("humanInvocationBetweenPhasesRequired") is False, "no-human-invocation-between-phases", failures)
+    check(continuous.get("legacyManualPhasePromptsAreAuthoritative") is False, "legacy-manual-phase-prompts-non-authoritative", failures)
 
     agents = ROOT / ".agents"
     hosts = contract.get("requiredProjectedHosts")
@@ -70,6 +78,10 @@ def main() -> int:
         for host in hosts:
             host_path = ROOT / host
             check(host_path.is_dir(), f"projection-exists host={host}", failures)
+            activate = host_path / "ACTIVATE.md"
+            activate_text = activate.read_text(encoding="utf-8") if activate.is_file() else ""
+            check(activate.is_file(), f"activation-bootstrap-exists host={host}", failures)
+            check("Phase transitions are automatic." in activate_text and "Never ask the human to invoke the next phase" in activate_text and "resume from durable queue/trail state" in activate_text, f"activation-bootstrap-continuous host={host}", failures)
             for name in REQUIRED_CONTROL_FILES:
                 source = agents / name
                 target = host_path / name
