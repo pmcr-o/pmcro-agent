@@ -62,4 +62,6 @@ ok(cr.get('enabled') is True and cr.get('automaticPhaseTransitions') is True and
 ok('queue-quiescence' in cr.get('stopOnlyOn',[]) and 'host-session-termination' in cr.get('stopOnlyOn',[]) and 'durable queue/trail state' in cr.get('onReconnect',''),'continuous activation has bounded stop/resume law')
 ok(cadence=={'questionGate':False,'humanPhaseGate':False,'autonomousUntilBoundary':True,'reflectedNextSeedAutoAdmit':True},'execution cadence forbids human phase gate and auto-admits reflected seed')
 agents=(R/'AGENTS.md').read_text(encoding='utf-8-sig');ok('Never ask the human to invoke the next phase, agent, or cycle.' in agents and 'Legacy/manual phase-gating instructions are non-authoritative' in agents and 'resume from durable queue/trail state' in agents,'root agent contract requires continuous resumable activation')
+for h in ['.claude','.grok','.cursor','.github']:
+ a=R/h/'ACTIVATE.md'; txt=a.read_text(encoding='utf-8') if a.is_file() else '';ok(a.is_file() and 'Phase transitions are automatic.' in txt and 'Never ask the human to invoke the next phase' in txt and 'resume from durable queue/trail state' in txt,f'{h} continuous activation bootstrap')
 print(f'SUMMARY pass={len(passed)} fail={len(fail)}');raise SystemExit(1 if fail else 0)
