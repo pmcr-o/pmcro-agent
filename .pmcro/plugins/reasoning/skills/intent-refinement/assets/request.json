@@ -1,0 +1,7 @@
+{
+  "plugin": "reasoning",
+  "skill": "intent-refinement",
+  "agent": "intent-refinement-agent",
+  "description": "Orchestrator-owned seed intent refinement after ORCHESTRATE activation and before admission/routing/PLAN; preserves raw input and grants no authority.",
+  "registered": true
+}

@@ -10,6 +10,8 @@ $callPath = Join-Path $market ".pmcro/trails/$RunId.jsonl"
 if (-not (Test-Path -LiteralPath $checkPath)) { throw 'reflect requires the check skill verdict' }
 if (-not (Test-Path -LiteralPath $callPath)) { throw 'reflect requires the call trail' }
 $check = Get-Content -LiteralPath $checkPath -Raw | ConvertFrom-Json
+if (-not $check.i -or $check.i.schema -ne 'pmcro.i-frame/v1' -or -not $check.i.am -or -not $check.i.intentRef -or -not $check.i.intent -or -not $check.i.behavior) { throw 'reflect requires a bounded Checker-I frame' }
+if ($check.i.am -ne $check.i.entityRef) { throw 'reflect requires consistent Checker-I identity' }
 if ($check.verdict -ne 'PASS' -and $check.verdict -ne 'LOOP') { throw 'reflect requires PASS or LOOP' }
 $out = Join-Path $market ".pmcro/trails/$RunId-reflect.jsonl"
 if (Test-Path -LiteralPath $out) { throw "append-only: reflect already exists for $RunId" }
@@ -78,7 +80,7 @@ $next = [ordered]@{
     because = $constraint
     level = $level
     depth = $nextDepth
-    question = 'how could we have done better'
+    question = 'how could I have done better'
     cycle = $frames
     do = $do
     doNot = $doNot
@@ -86,16 +88,19 @@ $next = [ordered]@{
     skillCreator = $known
 }
 if ($closedRoute) { $next.closedRoute = $closedRoute }
+$intentFrame = $events | Where-Object { $_.phase -eq 'intent-refinement' } | Select-Object -First 1
+$intentRef = [string]$intentFrame.rootIntentRef
 $row = [ordered]@{
     phase = 'reflect'
     response = "I AM the $(Get-PhaseRoute reflect)"
+    i = (New-IFrame -Phase reflect -IntentRef $intentRef -Intent ([string]$admit.message) -Behavior 'take the acted cycle as object and emit one unexecuted next seed' -ObjectRefs @("${RunId}:check","${RunId}:cycle") -AddressedI (Get-NextRoute reflect) -MetaDepth $nextDepth)
     hookBefore = (Get-BeforeHook -Phase reflect -Seed $RunId)
     hookAfter = (Get-AfterHook -Phase reflect -Seed $RunId -Next (Get-NextRoute reflect))
     nextCall = (Get-NextRoute reflect)
     runId = $RunId
     verdict = $check.verdict
     frames = $frames
-    question = 'how could we have done better'
+    question = 'how could I have done better'
     constraint = $constraint
     nextSeed = $next
 }

@@ -14,3 +14,6 @@ Require the checker verdict and the cycle evidence.
 Call setup: [call.md](references/call.md)
 ## Recursive cascade contract
 I AM the reflector. I may run a local PMCR-O cycle only to produce the bounded **earned constraint plus one unexecuted next seed**. That local cycle inherits the parent authority ceiling, may narrow but never widen it, and may not **execute the next seed in the same cycle**. LOOP/HALT returns through local CHECK -> REFLECT to the owning orchestrator; phases do not jump.
+
+## I-only generated language
+Every system-generated phase frame speaks from the current bounded `I`. Another agent remains another bounded `I` and is referenced by route/dependency/object identity; generated second-person address is forbidden. Literal raw intent remains immutable provenance and is not rewritten to satisfy this speech law.

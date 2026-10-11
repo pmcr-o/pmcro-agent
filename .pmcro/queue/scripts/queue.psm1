@@ -30,6 +30,7 @@ function Validate-Message($m,$config){
   if([string]$m.targetAgent -ne [string]$config.agent){throw "message targetAgent must be $($config.agent)"}
   if([string]$m.kind -notin @($config.allowedKinds)){throw "message kind not allowed: $($m.kind)"}
   if([string]$m.evidenceStatus -notin @('CONFIRMED','NOT-YET-VERIFIED','NOT-RUN')){throw 'invalid evidenceStatus'}
+  if($m.payload -and $m.payload.PSObject.Properties['I']){$I=$m.payload.I;foreach($f in @('schema','iRef','entityRef','role','behavior','intentRef','lineageRootRef','parentIRef','objectIRefs','addressedIRef','authorityCeilingRef','metaDepth','consciousnessClaim')){if(-not $I.PSObject.Properties[$f]){throw "missing I context field: $f"}};if([string]$I.schema -ne 'pmcro.i-context/v1'){throw 'invalid I context schema'};if([string]$I.entityRef -ne [string]$m.sourceAgent){throw 'I entity must equal sourceAgent'};if([string]$I.addressedIRef -ne [string]$m.targetAgent){throw 'I addressedIRef must equal targetAgent'};if([bool]$I.consciousnessClaim){throw 'I context consciousnessClaim must be false'}}
   if((Dedupe-Digest $m) -ne [string]$m.dedupeDigest){throw 'message dedupe digest mismatch'}
   if((Digest-Body $m) -ne [string]$m.contentDigest){throw 'message digest mismatch'}
   $true

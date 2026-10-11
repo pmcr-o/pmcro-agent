@@ -39,7 +39,7 @@ $score = [ordered]@{
     handsToMake = 1
 }
 $row = [ordered]@{
-    seq = $events.Count + 1; phase = 'plan'; response = "I AM the $(Get-PhaseRoute plan)"; hookBefore = (Get-BeforeHook -Phase plan -Seed $admit.message); hookAfter = (Get-AfterHook -Phase plan -Seed $admit.message -Next (Get-NextRoute plan)); level = 1; loaded = @('.agents/catalog.json')
+    seq = $events.Count + 1; phase = 'plan'; response = "I AM the $(Get-PhaseRoute plan)"; i = (New-IFrame -Phase plan -IntentRef ([string]($events | Where-Object { $_.phase -eq 'intent-refinement' } | Select-Object -First 1).rootIntentRef) -Intent ([string]$admit.message) -Behavior 'produce bare-minimum plan from validated understanding and resources' -ObjectRefs @("${RunId}:orchestrate") -AddressedI (Get-NextRoute plan)); hookBefore = (Get-BeforeHook -Phase plan -Seed $admit.message); hookAfter = (Get-AfterHook -Phase plan -Seed $admit.message -Next (Get-NextRoute plan)); level = 1; loaded = @('.agents/catalog.json')
     action = $admit.decision; source = $admit.source; route = $admit.route; message = $admit.message
     skillCreator = [ordered]@{ present = $true; call = $false }
     bareMinimum = $true; steps = $steps; dropped = $dropped

@@ -40,4 +40,29 @@ function Get-AfterHook {
     return $line
 }
 
-Export-ModuleMember -Function Get-PhaseRoute, Get-NextRoute, Get-BeforeHook, Get-AfterHook
+
+function New-IFrame {
+    param(
+        [Parameter(Mandatory = $true)][ValidateSet('orchestrate','plan','make','check','reflect')][string]$Phase,
+        [Parameter(Mandatory = $true)][string]$IntentRef,
+        [Parameter(Mandatory = $true)][string]$Intent,
+        [Parameter(Mandatory = $true)][string]$Behavior,
+        [string[]]$ObjectRefs = @(),
+        [string]$AddressedI,
+        [string]$AuthorityCeilingRef = '.agents/grants.json',
+        [int]$MetaDepth = 0
+    )
+    return [ordered]@{
+        schema = 'pmcro.i-frame/v1'
+        am = (Get-PhaseRoute $Phase)
+        intentRef = $IntentRef
+        intent = $Intent
+        entityRef = (Get-PhaseRoute $Phase)
+        behavior = $Behavior
+        objectRefs = @($ObjectRefs)
+        addressedI = $AddressedI
+        authorityCeilingRef = $AuthorityCeilingRef
+        metaDepth = $MetaDepth
+    }
+}
+Export-ModuleMember -Function Get-PhaseRoute, Get-NextRoute, Get-BeforeHook, Get-AfterHook, New-IFrame

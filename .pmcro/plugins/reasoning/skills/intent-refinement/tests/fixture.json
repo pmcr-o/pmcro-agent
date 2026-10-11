@@ -1,0 +1,68 @@
+{
+  "schema": "pmcro.intent-refinement/v1",
+  "ownerPhase": "ORCHESTRATE",
+  "invokedBy": "orchestrator",
+  "rootIntentRef": "intent:messy-001",
+  "rawIntent": "uh yeah so like I want the company to, you know, always run but not waste money and use the validated resources first",
+  "workingIntent": "Keep the company continuously running, avoid unnecessary spending, and use validated resources first.",
+  "requestedOutcome": "A continuously operating company system that is cost-conscious and plans from validated resources.",
+  "validatedClaims": [
+    {
+      "claimId": "c1",
+      "sourceStart": 27,
+      "sourceEnd": 59,
+      "sourceExcerpt": "company to, you know, always run",
+      "interpretation": "The company should remain continuously running/available.",
+      "status": "CONFIRMED"
+    },
+    {
+      "claimId": "c2",
+      "sourceStart": 64,
+      "sourceEnd": 79,
+      "sourceExcerpt": "not waste money",
+      "interpretation": "Continuous operation should avoid unnecessary spending.",
+      "status": "CONFIRMED"
+    },
+    {
+      "claimId": "c3",
+      "sourceStart": 84,
+      "sourceEnd": 117,
+      "sourceExcerpt": "use the validated resources first",
+      "interpretation": "Planning should prefer validated resources first.",
+      "status": "CONFIRMED"
+    }
+  ],
+  "unresolvedFragments": [
+    "The exact technical mechanism for continuous operation is not specified by the raw seed."
+  ],
+  "explicitConstraints": [
+    "Use validated resources first",
+    "Do not waste money continuously"
+  ],
+  "assumptions": [
+    "An event-driven low-cost control plane may be a suitable implementation, but it is not a validated user-intent claim."
+  ],
+  "changes": [
+    "Removed filler without replacing the immutable raw seed",
+    "Separated source-grounded intent facts from implementation assumptions",
+    "Kept unresolved implementation detail outside planner-admissible intent"
+  ],
+  "rationaleSummary": "The source validates continuous operation, avoiding unnecessary spend, and using validated resources first. The runtime mechanism remains unresolved and must be selected later from validated resources.",
+  "authorityGranted": false,
+  "executionPerformed": false,
+  "I": {
+    "schema": "pmcro.i-context/v1",
+    "iRef": "i:intent:messy-001:orchestrate",
+    "entityRef": "pmcro-agent",
+    "role": "ORCHESTRATE",
+    "behavior": "refine-intent",
+    "intentRef": "intent:messy-001",
+    "lineageRootRef": "intent:messy-001",
+    "parentIRef": "",
+    "objectIRefs": [],
+    "authorityCeilingRef": "authority:inherited",
+    "metaDepth": 0,
+    "consciousnessClaim": false,
+    "addressedIRef": "reasoning-agent"
+  }
+}

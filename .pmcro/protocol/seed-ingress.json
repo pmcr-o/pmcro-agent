@@ -1,0 +1,28 @@
+{
+  "schema": "pmcro.seed-ingress/v1",
+  "law": "Every new root seed is first activated by ORCHESTRATE. There is no pre-orchestrator intent cleaner, planner, prompt engineer, maker, checker, or reflector.",
+  "newRootSeed": {
+    "firstPhase": "ORCHESTRATE",
+    "firstIdentity": "orchestrator",
+    "canonicalRoute": "@pmcro-agent /pmcro-orchestrator:orchestrate",
+    "preserveRawSeedVerbatim": true,
+    "firstIntentHypothesisOwner": "ORCHESTRATE",
+    "preOrchestratorInterpretationAllowed": false
+  },
+  "intentRefinement": {
+    "owner": "ORCHESTRATE",
+    "rule": "Orchestrator may run a bounded inner PMCR-O cycle and invoke registered reasoning/prompting capabilities to refine the intent hypothesis before outer PLAN.",
+    "rawSeedMayBeRewritten": false,
+    "hypothesisIsDerivedState": true,
+    "plannerReceives": "admitted bounded intent hypothesis plus immutable raw-seed reference and admissible evidence"
+  },
+  "reflectedNextSeed": {
+    "sameCycleExecution": false,
+    "newCycleFirstPhase": "ORCHESTRATE",
+    "rule": "REFLECT emits exactly one unexecuted next seed; if consumed, it becomes a new root-cycle ingress through ORCHESTRATE."
+  },
+  "internalDelegation": {
+    "isNewRootSeed": false,
+    "rule": "A capability handoff inside an already admitted cycle does not restart root ingress; it remains governed by the owning phase/cycle."
+  }
+}

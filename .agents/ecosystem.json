@@ -6,7 +6,7 @@
       "id": "pmcro-agent",
       "status": "canonical",
       "role": "global-orchestrator",
-      "skills": 16
+      "skills": 17
     },
     {
       "id": "csuite-agent",
@@ -78,7 +78,7 @@
       "id": "reasoning-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 8
+      "skills": 10
     },
     {
       "id": "maf-agent",

@@ -12,6 +12,7 @@ $plan = $events | Where-Object { $_.phase -eq 'plan' } | Select-Object -First 1
 if (-not $plan) { throw 'make requires a plan' }
 if (@($events | Where-Object { $_.phase -eq 'make' }).Count -gt 0) { throw 'make already recorded' }
 $admit = $events | Where-Object { $_.phase -eq 'orchestrate' } | Select-Object -First 1
+$intentRef = [string]@($events | Where-Object { $_.phase -eq 'intent-refinement' } | Select-Object -First 1).rootIntentRef
 $seed = [string]$admit.message
 $before = Get-BeforeHook -Phase make -Seed $seed
 $after = Get-AfterHook -Phase make -Seed $seed -Next (Get-NextRoute make)
@@ -45,7 +46,7 @@ try {
             [IO.File]::WriteAllText($outFile, ($doc + "`n"), $utf8)
         }
         $row = [ordered]@{
-            seq = $seq; phase = 'make'; response = $response; hookBefore = $before; hookAfter = $after
+            seq = $seq; phase = 'make'; response = $response; i = (New-IFrame -Phase make -IntentRef $intentRef -Intent $seed -Behavior 'execute accepted plan within registered capability boundary' -ObjectRefs @("${RunId}:plan") -AddressedI (Get-NextRoute make)); hookBefore = $before; hookAfter = $after
             level = 1; loaded = @('.agents/catalog.json')
             goal = $admit.goal; source = $admit.source; message = $admit.message
             skillCreator = [ordered]@{ present = $true; operations = @('create', 'read', 'update', 'delete'); call = $false }
@@ -70,7 +71,7 @@ return
     $seq = $events.Count
     $seq++
     $body = [ordered]@{
-        seq = $seq; phase = 'make'; response = $response; hookBefore = $before; hookAfter = $after
+        seq = $seq; phase = 'make'; response = $response; i = (New-IFrame -Phase make -IntentRef $intentRef -Intent $seed -Behavior 'disclose selected skill body within accepted plan' -ObjectRefs @("${RunId}:plan") -AddressedI (Get-PhaseRoute make)); hookBefore = $before; hookAfter = $after
         level = 2; loaded = @($skillMd); skillBody = $skillMd
         invoke = $admit.route; message = $admit.message
         score = [ordered]@{ followedPlan = 1; carriedMessage = 1; bodyOpened = 1; noSkillCreatorCall = 1 }
@@ -79,7 +80,7 @@ return
     [IO.File]::AppendAllText($trail, (($body | ConvertTo-Json -Compress -Depth 6) + "`n"), $utf8)
     $seq++
     $script = [ordered]@{
-        seq = $seq; phase = 'make'; response = $response; hookBefore = $before; hookAfter = $after
+        seq = $seq; phase = 'make'; response = $response; i = (New-IFrame -Phase make -IntentRef $intentRef -Intent $seed -Behavior 'invoke selected capability validation mechanics' -ObjectRefs @("${RunId}:make:body") -AddressedI (Get-NextRoute make)); hookBefore = $before; hookAfter = $after
         level = 3; loaded = @($validate); script = $validate
         exitCode = 0; handoff = 'CHECKER REQUIRED'; nextCall = (Get-NextRoute make)
     }
@@ -91,7 +92,7 @@ catch {
     $err = $_.Exception.Message
     $seq = $events.Count + 1
     $row = [ordered]@{
-        seq = $seq; phase = 'make'; response = $response; hookBefore = $before; hookAfter = $after
+        seq = $seq; phase = 'make'; response = $response; i = (New-IFrame -Phase make -IntentRef $intentRef -Intent $seed -Behavior 'record bounded maker error as evidence for checker' -ObjectRefs @("${RunId}:plan") -AddressedI (Get-NextRoute make)); hookBefore = $before; hookAfter = $after
         level = 1; loaded = @('.agents/catalog.json')
         goal = $admit.goal; source = $admit.source; message = $admit.message
         error = $err

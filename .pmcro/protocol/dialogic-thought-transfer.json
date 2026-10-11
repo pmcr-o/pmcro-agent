@@ -4,7 +4,7 @@
   "philosophicalInspirations": [
     {
       "name": "Martin Buber",
-      "mapping": "I/Thou relation inspires explicitly addressed agent-to-agent frames; this is an engineering interpretation, not a claim of endorsement."
+      "mapping": "relational identity inspires explicit addressed frames; PMCR-O operational grammar expresses every participant as a bounded I context."
     },
     {
       "name": "Douglas Hofstadter",
@@ -56,7 +56,8 @@
     ],
     "contentRule": "Content is concise externalized working product or rationale summary, never hidden chain-of-thought.",
     "evidenceRule": "Claims that affect later planning must carry evidence references or remain NOT-YET-VERIFIED.",
-    "addressRule": "Every dialogic frame names a speaker and listener, even when the listener is the owning orchestrator or checker."
+    "addressRule": "Every dialogic frame names a speaking I and an addressed I. No second-person identity language is canonical.",
+    "selfReferenceLaw": "Every frame carries I. The speaking I names entity, behavior, intent, parent/object I lineage, addressed I, and authority ceiling."
   },
   "roundtable": {
     "rule": "Roundtable is many addressed frames over one bounded conversation graph, not unrestricted peer mutation.",
@@ -81,5 +82,6 @@
     "micro": "script/runtime action, trail frame, evidence receipt, outcome attestation",
     "echoLaw": "The same typed frame vocabulary may appear at each scale, but lower-scale frames inherit and cannot widen higher-scale authority."
   },
-  "specialization": "When repeated dialogic work develops independent persistent state, credentials/grants, queue/trail ownership, or lifecycle authority, promote it to a specialized child agent; otherwise keep it a skill/procedure."
+  "specialization": "When repeated dialogic work develops independent persistent state, credentials/grants, queue/trail ownership, or lifecycle authority, promote it to a specialized child agent; otherwise keep it a skill/procedure.",
+  "iContext": "pmcro.i-context/v1"
 }

@@ -68,6 +68,11 @@
       "route": "@pmcro-agent /pmcro-reflector:reflect"
     },
     {
+      "plugin": "reasoning",
+      "skill": "intent-refinement",
+      "route": "@pmcro-agent /reasoning:intent-refinement"
+    },
+    {
       "plugin": "skill-creator",
       "skill": "create-skill",
       "route": "@pmcro-agent /skill-creator:create-skill"

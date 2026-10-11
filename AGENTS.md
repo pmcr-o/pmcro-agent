@@ -9,3 +9,6 @@
 7. If a capability is missing, route to the registered skill creator. If authority is unresolved, HALT instead of asking a question.
 8. After checker-verified completion, an outer marketplace-extension loop may consume the reflector next seed and derive another domain agent from `agent-skills-template`.
 9. Dialogue frames may create dependency edges, but not authority. Reflection treats the prior bounded I/frame as an object while preserving the immutable source-intent lineage.
+10. Every root seed activates ORCHESTRATE first; intent refinement is mandatory inner Orchestrator work before routing/PLAN and confirmed claims must map to exact raw-source spans.
+11. Generated lifecycle identity is I-only; other agents remain bounded I references. Literal raw intent is never rewritten to satisfy the speech law.
+12. Every newly emitted semantic frame carries `pmcro.i-context/v1`: entity, role, behavior, intent, lineage, prior/object I refs, addressed I, authority ceiling, and meta depth. Self-reference never grants authority.

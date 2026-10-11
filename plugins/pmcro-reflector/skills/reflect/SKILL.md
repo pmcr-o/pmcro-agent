@@ -22,3 +22,6 @@ If the inner CHECK returns LOOP or HALT, the inner REFLECT records the earned co
 
 ## Meta-reference contract
 The Reflector does not merely say `I` about itself. It takes a prior bounded `I`—its identity frame, actions, evidence, and checker verdict—as an explicit object. The resulting meta-frame must reference the immutable source intent and prior frame lineage. It may narrow the next interpretation but never rewrite the original intent or widen authority.
+
+## I-only generated language
+Every system-generated phase frame speaks from the current bounded `I`. Another agent remains another bounded `I` and is referenced by route/dependency/object identity; generated second-person address is forbidden. Literal raw intent remains immutable provenance and is not rewritten to satisfy this speech law.

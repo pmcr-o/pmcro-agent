@@ -12,9 +12,35 @@ $verdictPath = Join-Path $market ".pmcro/trails/$RunId-check.jsonl"
 if (Test-Path -LiteralPath $verdictPath) { throw "append-only: check already exists for $RunId" }
 $events = @(Get-Content -LiteralPath $trailPath | ForEach-Object { $_ | ConvertFrom-Json })
 $fail = @()
+$intent = $events | Where-Object { $_.phase -eq 'intent-refinement' } | Select-Object -First 1
 $admit = $events | Where-Object { $_.phase -eq 'orchestrate' } | Select-Object -First 1
 $plan = $events | Where-Object { $_.phase -eq 'plan' } | Select-Object -First 1
 $phaseOrder = @($events | ForEach-Object { $_.phase }) -join ','
+foreach ($event in $events) {
+    if (-not $event.i) { $fail += "frame $($event.phase) has no bounded I identity"; continue }
+    if ($event.i.schema -ne 'pmcro.i-frame/v1') { $fail += "frame $($event.phase) has invalid I schema" }
+    if (-not $event.i.am -or -not $event.i.entityRef -or $event.i.am -ne $event.i.entityRef) { $fail += "frame $($event.phase) has inconsistent I entity" }
+    if (-not $event.i.intentRef -or -not $event.i.intent -or -not $event.i.behavior) { $fail += "frame $($event.phase) has incomplete I intent/behavior" }
+    if (-not $event.i.addressedI) { $fail += "frame $($event.phase) has no addressed I" }
+    if (@($event.i.objectRefs).Count -lt 1 -or @($event.i.objectRefs | Where-Object { -not $_ }).Count -gt 0) { $fail += "frame $($event.phase) has invalid I dependency object refs" }
+    if (-not $event.i.authorityCeilingRef) { $fail += "frame $($event.phase) has no I authority ceiling" }
+    foreach ($generated in @([string]$event.i.behavior,[string]$event.i.addressedI,[string]$event.i.am)) {
+        if ($generated -match '(?i)\b(you|your|we|our)\b') { $fail += "frame $($event.phase) generated non-I pronoun" }
+    }
+}
+if (-not $intent) { $fail += 'missing mandatory intent-refinement ingress frame' }
+else {
+    if ($intent.response -ne "I AM the $(Get-PhaseRoute orchestrate)") { $fail += 'intent refinement did not speak as Orchestrator-I' }
+    if ($intent.ownerPhase -ne 'ORCHESTRATE' -or $intent.invokedBy -ne 'orchestrator') { $fail += 'intent refinement is not owned by ORCHESTRATE' }
+    if ($intent.authorityGranted -ne $false -or $intent.executionPerformed -ne $false) { $fail += 'intent refinement widened authority or executed work' }
+    if (-not $intent.rawIntent -or -not $intent.workingIntent) { $fail += 'intent refinement omitted raw or working intent' }
+    if (@($intent.validatedClaims).Count -lt 1) { $fail += 'intent refinement has no validated claims' }
+    foreach ($claim in @($intent.validatedClaims)) {
+        $raw=[string]$intent.rawIntent; $start=[int]$claim.sourceStart; $end=[int]$claim.sourceEnd
+        if ($claim.status -ne 'CONFIRMED' -or -not $claim.claimId -or -not $claim.sourceExcerpt -or $start -lt 0 -or $end -le $start -or $end -gt $raw.Length -or $raw.Substring($start,$end-$start) -ne [string]$claim.sourceExcerpt) { $fail += 'intent refinement has claim without exact CONFIRMED source grounding' }
+    }
+    if ($admit.message -ne $intent.workingIntent) { $fail += 'orchestrate did not consume the refined working intent' }
+}
 if ($admit.skillCreator.present -ne $true -or $admit.skillCreator.call -ne $false) { $fail += 'skill-creator was not a default present capability' }
 if ($plan.bareMinimum -ne $true) { $fail += 'plan is not the bare minimum' }
 if (@($plan.steps)[0] -ne '.agents/catalog.json') { $fail += 'plan omitted the validated catalog' }
@@ -24,12 +50,12 @@ foreach ($id in @($plan.dropped)) {
 $called = @($events | ForEach-Object { $_.nextCall } | Where-Object { $_ -match 'skill-creator' })
 if ($called.Count -ne 0) { $fail += 'the cycle called skill-creator' }
 if ($admit.decision -eq 'invoke') {
-    if ($phaseOrder -ne 'orchestrate,plan,make,make') { $fail += "phase order $phaseOrder" }
+    if ($phaseOrder -ne 'intent-refinement,orchestrate,plan,make,make') { $fail += "phase order $phaseOrder" }
     if ($plan.nextCall -ne (Get-NextRoute plan)) { $fail += 'invoke plan did not name make' }
     if (-not $plan.message) { $fail += 'invoke plan has no message' }
 }
 elseif ($admit.decision -eq 'goal') {
-    if ($phaseOrder -ne 'orchestrate,plan,make') { $fail += "phase order $phaseOrder" }
+    if ($phaseOrder -ne 'intent-refinement,orchestrate,plan,make') { $fail += "phase order $phaseOrder" }
     if ($admit.nextCall -ne (Get-NextRoute orchestrate)) { $fail += 'goal did not stay on the cycle' }
     $bodies = @($events | ForEach-Object { $_.loaded } | Where-Object { $_ -match '/SKILL\.md$' })
     if ($bodies.Count -ne 0) { $fail += 'goal opened a skill body' }
@@ -43,7 +69,7 @@ foreach ($event in $events) {
         if ($path -match '/(references|scripts)/' -and -not $seenBody) { $fail += "level 3 recorded before a skill body: $path" }
     }
 }
-$voice = @{ orchestrate = (Get-PhaseRoute orchestrate); plan = (Get-PhaseRoute plan); make = (Get-PhaseRoute make) }
+$voice = @{ 'intent-refinement' = (Get-PhaseRoute orchestrate); orchestrate = (Get-PhaseRoute orchestrate); plan = (Get-PhaseRoute plan); make = (Get-PhaseRoute make) }
 foreach ($event in $events) {
     $expectedVoice = "I AM the $($voice[$event.phase])"
     if ($event.response -ne $expectedVoice) { $fail += "frame $($event.phase) did not respond as $expectedVoice" }
@@ -69,9 +95,12 @@ $setup = Join-Path $PSScriptRoot '../../../../pmcro-orchestrator/skills/orchestr
 $probeId = "goal-$([guid]::NewGuid().ToString('N').Substring(0, 8))"
 & $setup -Marketplace $market -Source intent -Goal 'probe a missing skill' -Plugin dotnet -Skill 'not-a-catalog-skill' -RunId $probeId | Out-Null
 $probeEvents = @(Get-Content -LiteralPath (Join-Path $market ".pmcro/trails/$probeId.jsonl") | ForEach-Object { $_ | ConvertFrom-Json })
-if ($probeEvents[0].decision -ne 'goal') { $fail += 'missing skill was not kept as a goal' }
-if ($probeEvents[0].nextCall -ne (Get-NextRoute orchestrate)) { $fail += 'missing skill left the cycle' }
-if ($probeEvents[0].skillCreator.call -ne $false) { $fail += 'missing skill called skill-creator' }
+$probeAdmit = $probeEvents | Where-Object { $_.phase -eq 'orchestrate' } | Select-Object -First 1
+$probeIntent = $probeEvents | Where-Object { $_.phase -eq 'intent-refinement' } | Select-Object -First 1
+if (-not $probeIntent -or $probeIntent.ownerPhase -ne 'ORCHESTRATE') { $fail += 'missing skill probe skipped intent refinement' }
+if ($probeAdmit.decision -ne 'goal') { $fail += 'missing skill was not kept as a goal' }
+if ($probeAdmit.nextCall -ne (Get-NextRoute orchestrate)) { $fail += 'missing skill left the cycle' }
+if ($probeAdmit.skillCreator.call -ne $false) { $fail += 'missing skill called skill-creator' }
 $probeLoads = @($probeEvents | ForEach-Object { $_.loaded } | Where-Object { $_ -match '/SKILL\.md$' })
 if ($probeLoads.Count -ne 0) { $fail += 'missing skill opened a skill body' }
 
@@ -126,8 +155,9 @@ if ($makeScored.score) {
     }
 }
 $verdict = if ($fail.Count -eq 0) { 'PASS' } else { 'LOOP' }
+$intentRef = [string]@($events | Where-Object { $_.phase -eq 'intent-refinement' } | Select-Object -First 1).rootIntentRef
 $row = [ordered]@{
-    phase = 'check'; response = "I AM the $(Get-PhaseRoute check)"; hookBefore = (Get-BeforeHook -Phase check -Seed $RunId); hookAfter = (Get-AfterHook -Phase check -Seed $RunId -Next (Get-NextRoute check)); verdict = $verdict; runId = $RunId; failures = @($fail)
+    phase = 'check'; response = "I AM the $(Get-PhaseRoute check)"; i = (New-IFrame -Phase check -IntentRef $intentRef -Intent ([string]$admit.message) -Behavior 'independently judge lifecycle evidence' -ObjectRefs @("${RunId}:orchestrate","${RunId}:plan","${RunId}:make") -AddressedI (Get-NextRoute check)); hookBefore = (Get-BeforeHook -Phase check -Seed $RunId); hookAfter = (Get-AfterHook -Phase check -Seed $RunId -Next (Get-NextRoute check)); verdict = $verdict; runId = $RunId; failures = @($fail)
     matrix = $matrix
     mustFail = 'level 3 before SKILL.md threw'; goalProbe = $probeId; nextCall = (Get-NextRoute check)
 }

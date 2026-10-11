@@ -65,6 +65,11 @@
       "description": "Record one earned constraint and one unexecuted next seed."
     },
     {
+      "id": "intent-refinement",
+      "plugin": "reasoning",
+      "description": "Mandatory Orchestrator-owned refinement of a raw PMCR-O seed into exact-source-grounded validated intent claims after ORCHESTRATE activates and before admission/routing/PLAN."
+    },
+    {
       "id": "create-skill",
       "plugin": "skill-creator",
       "description": "Create a candidate marketplace skill package with an agent, scripts, references, assets, and tests. Use when a marketplace needs a new skill. Does not register the candidate."

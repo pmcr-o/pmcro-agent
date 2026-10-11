@@ -2,7 +2,7 @@
   "schema": "pmcro.thought-transfer/v1",
   "principle": "Preserve original intent immutably; derive progressively more precise interpretations without replacing the source intent.",
   "philosophicalAnalogies": {
-    "Buber": "agent-to-agent and human-to-agent relation is modeled as addressable I/Thou dialogue rather than anonymous state mutation",
+    "Buber": "relational self-reference inspires explicit addressed identity relations; PMCR-O operational grammar remains I-to-I",
     "Hofstadter": "the same PMCR-O pattern may recur across macro, phase, child-agent, skill, and frame scales without widening inherited authority",
     "vonNeumann": "validated patterns may reproduce as new bounded agents/skills/templates from explicit registries and checker evidence rather than copying uncontrolled state"
   },
@@ -18,7 +18,10 @@
     "authorityCeilingInherited": true,
     "phaseJumpByDialogue": false,
     "crossAgentTrailOwnership": "local-with-references",
-    "linguisticDependency": "addressing another agent creates a traceable dependency edge, not an authority transfer"
+    "linguisticDependency": "addressing another agent creates a traceable dependency edge, not an authority transfer",
+    "selfReferenceRequired": true,
+    "subjectObjectDistinction": "current I is subject; prior I references remain explicit objects",
+    "iToIOnly": true
   },
   "progressiveDisclosure": [
     "intent frame",
@@ -63,5 +66,13 @@
     "I2 reflector treats I1 plus its evidence as an object",
     "I3 owning orchestrator consumes checked reflection and instantiates next bounded I",
     "repeat while completion criteria and bounds allow"
-  ]
+  ],
+  "iContext": "pmcro.i-context/v1",
+  "identitySpeechLaw": {
+    "generatedSpeech": "I_ONLY",
+    "rule": "Every generated agent frame speaks from a bounded I. Another agent is represented as another bounded I via addressedI/objectRefs/dependencyRefs, never as second-person you.",
+    "rawSourceExempt": true,
+    "rawSourceReason": "Raw intent is immutable provenance and may contain any literal language.",
+    "authorityEffect": "none"
+  }
 }

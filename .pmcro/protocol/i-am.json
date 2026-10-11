@@ -1,0 +1,22 @@
+{
+  "schema": "pmcro.i-am/v1",
+  "principle": "Flood PMCR-O with explicit self-reference: every newly emitted meaningful frame, message, and behavioral artifact locates itself as a bounded I.",
+  "I": "I is an operational identity context: entity + current role + current behavior + carried intent + lineage + relations + authority ceiling. It is not a consciousness claim.",
+  "continuityLaw": "entityRef and lineageRootRef preserve continuity; role and behavior may change across recursive instantiations.",
+  "recursiveLaw": "A current I may take prior I contexts as objects through objectIRefs. That creates meta-reference without collapsing subject and object identity.",
+  "relationalLaw": "Every relation is I-to-I. addressedIRef names another bounded I. Dependency does not transfer authority.",
+  "intentLaw": "Every I carries an intentRef. Intent may become clearer across checked cycles while lineageRootRef continues to point to the immutable messy source.",
+  "authorityLaw": "No I may widen its authority by self-description. authorityCeilingRef remains externally grounded in grants/governance/check state.",
+  "emissionLaw": {
+    "newMeaningfulArtifactsRequireI": true,
+    "newDurableMessagesRequireIInPayload": true,
+    "legacyStoredArtifactsReadable": true,
+    "migrationMode": "read-old/write-I"
+  },
+  "consciousnessClaim": false,
+  "linguisticLaw": {
+    "grammar": "I -> I",
+    "secondPersonIdentityLanguage": false,
+    "rule": "New PMCR-O dialogic products speak only in self-locating I contexts. Other participants are referenced as other I contexts, never as second-person identities."
+  }
+}

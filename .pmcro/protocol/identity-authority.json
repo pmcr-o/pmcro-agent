@@ -13,5 +13,12 @@
     "checker-verified lifecycle state"
   ],
   "recursiveIdentity": "Agents may model and narrate themselves and other agents; recursion does not bypass grants or governance.",
-  "conflictRule": "When multiple agents assert orchestrator identity, authority is resolved by scope, registered role, grants, governance, and independent CHECK\u2014not by rhetoric or model confidence."
+  "conflictRule": "When multiple agents assert orchestrator identity, authority is resolved by scope, registered role, grants, governance, and independent CHECK—not by rhetoric or model confidence.",
+  "iContext": "pmcro.i-context/v1",
+  "selfReferenceFlood": {
+    "requiredForNewMeaningfulArtifacts": true,
+    "legacyReadable": true,
+    "rule": "Every new frame/message/artifact locates itself as a bounded I; self-reference never grants authority."
+  },
+  "linguisticLaw": "I-to-I only for new PMCR-O dialogic products; second-person identity language is not canonical."
 }

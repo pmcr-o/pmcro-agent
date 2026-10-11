@@ -1,0 +1,196 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pmcro.intent-refinement/v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "I",
+    "ownerPhase",
+    "invokedBy",
+    "rootIntentRef",
+    "rawIntent",
+    "workingIntent",
+    "requestedOutcome",
+    "validatedClaims",
+    "unresolvedFragments",
+    "explicitConstraints",
+    "assumptions",
+    "changes",
+    "rationaleSummary",
+    "authorityGranted",
+    "executionPerformed"
+  ],
+  "properties": {
+    "schema": {
+      "const": "pmcro.intent-refinement/v1"
+    },
+    "ownerPhase": {
+      "const": "ORCHESTRATE"
+    },
+    "invokedBy": {
+      "const": "orchestrator"
+    },
+    "rootIntentRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rawIntent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "workingIntent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "requestedOutcome": {
+      "type": "string"
+    },
+    "validatedClaims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "claimId",
+          "sourceStart",
+          "sourceEnd",
+          "sourceExcerpt",
+          "interpretation",
+          "status"
+        ],
+        "properties": {
+          "claimId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sourceStart": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "sourceEnd": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "sourceExcerpt": {
+            "type": "string",
+            "minLength": 1
+          },
+          "interpretation": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "const": "CONFIRMED"
+          }
+        }
+      }
+    },
+    "unresolvedFragments": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "explicitConstraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "changes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "rationaleSummary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authorityGranted": {
+      "const": false
+    },
+    "executionPerformed": {
+      "const": false
+    },
+    "I": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "iRef",
+        "entityRef",
+        "role",
+        "behavior",
+        "intentRef",
+        "lineageRootRef",
+        "parentIRef",
+        "objectIRefs",
+        "addressedIRef",
+        "authorityCeilingRef",
+        "metaDepth",
+        "consciousnessClaim"
+      ],
+      "properties": {
+        "schema": {
+          "const": "pmcro.i-context/v1"
+        },
+        "iRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "entityRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "behavior": {
+          "type": "string",
+          "minLength": 1
+        },
+        "intentRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lineageRootRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "parentIRef": {
+          "type": "string"
+        },
+        "objectIRefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "authorityCeilingRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "metaDepth": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "consciousnessClaim": {
+          "const": false
+        },
+        "addressedIRef": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -88,6 +88,13 @@
       "path": ".pmcro/plugins/pmcro-reflector/skills/reflect"
     },
     {
+      "route": "@pmcro-agent /reasoning:intent-refinement",
+      "plugin": "reasoning",
+      "skill": "intent-refinement",
+      "description": "Mandatory Orchestrator-owned refinement of a raw PMCR-O seed into exact-source-grounded validated intent claims after ORCHESTRATE activates and before admission/routing/PLAN.",
+      "path": ".pmcro/plugins/reasoning/skills/intent-refinement"
+    },
+    {
       "route": "@pmcro-agent /skill-creator:create-skill",
       "plugin": "skill-creator",
       "skill": "create-skill",

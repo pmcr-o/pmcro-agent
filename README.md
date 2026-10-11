@@ -17,6 +17,8 @@ A reusable PMCR-O repository template and executable learning environment for bo
 - Action-powered learning: `./eng/learn.ps1 -Action list` (local workflow execution delegates to `github-agent/local-actions`)
 - Architecture: `docs/ARCHITECTURE.md`
 - Thought Transfer / linguistic strange loop: `docs/THOUGHT-TRANSFER.md`
+- Behavioral Intent Programming: `docs/BEHAVIORAL-INTENT-PROGRAMMING.md`
+- Recursive I-context: `docs/I-AM.md`
 - Extend marketplaces: `docs/MARKETPLACE-EXTENSION.md`
 - Run the same real cycle manually: `eng/run-tutorial.ps1`
 

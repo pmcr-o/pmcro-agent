@@ -1,0 +1,77 @@
+{
+  "schema": "pmcro.behavioral-intent-programming/v1",
+  "name": "Behavioral Intent Programming",
+  "seedLaw": "Every new root seed first activates ORCHESTRATE; the active Orchestrator immediately owns intent refinement before admission/routing/PLAN.",
+  "principle": "A messy human seed is the high-level behavioral goal. PMCR-O derives only exact-source-grounded, checker-supported intent claims and plans the bare minimum from the confirmed subset.",
+  "iContext": "pmcro.i-context/v1",
+  "iFrame": "pmcro.i-frame/v1",
+  "intentOfI": "Every intent interpretation is carried by a bounded I that names entity, behavior, source lineage, object I references, addressed I, and authority ceiling.",
+  "iOnlyGeneratedLanguage": true,
+  "rawIntentLiteralExempt": true,
+  "ingress": {
+    "firstActivePhase": "ORCHESTRATE",
+    "firstIdentity": "orchestrator",
+    "rawSeedImmutable": true,
+    "orchestratorOwnsIntentHypothesis": true,
+    "preOrchestratorCleaner": false,
+    "refinementMandatoryBeforeRouting": true
+  },
+  "intentEvidence": {
+    "unit": "exact-source-grounded claim",
+    "requiredStatus": "CONFIRMED",
+    "plannerAdmissibleStatus": [
+      "CONFIRMED"
+    ],
+    "requiredFields": [
+      "claimId",
+      "sourceStart",
+      "sourceEnd",
+      "sourceExcerpt",
+      "interpretation",
+      "status"
+    ],
+    "sourceGrounding": "Every confirmed intent claim maps sourceStart:sourceEnd exactly to sourceExcerpt in the immutable raw seed or separately references independently validated external evidence.",
+    "statuses": [
+      "CONFIRMED",
+      "PARTIAL",
+      "UNRESOLVED",
+      "CONTRADICTED"
+    ],
+    "unresolvedIsAuthoritative": false,
+    "rule": "Speech-to-text noise, spelling, repetition, missing words, or inferred ordering may be normalized only when interpretation remains traceable to exact source evidence; unsupported meaning remains unresolved."
+  },
+  "validatedUnderstanding": {
+    "unit": "exact-source-grounded claim",
+    "requiredStatus": "CONFIRMED",
+    "plannerMayUseOnlyValidatedClaims": true,
+    "unresolvedIsAuthoritative": false
+  },
+  "phaseSemantics": {
+    "ORCHESTRATE": "I preserve the raw messy seed, invoke bounded intent refinement, admit/deny/bound the confirmed interpretation, and route only after refinement.",
+    "PLAN": "I plan the bare minimum from CONFIRMED intent claims and admissible validated resources. Never fill unresolved intent gaps with invented meaning.",
+    "MAKE": "I materialize only the accepted bounded plan/product and emit evidence without widening the admitted intent.",
+    "CHECK": "I independently verify execution correctness and semantic fidelity back to exact raw-source spans and validated evidence.",
+    "REFLECT": "I take the acted I/cycle as object, record what became clearer or remained unresolved, and emit exactly one unexecuted next seed."
+  },
+  "innerLifecycle": [
+    "ORCHESTRATE",
+    "PLAN",
+    "MAKE",
+    "CHECK",
+    "REFLECT"
+  ],
+  "interpretationLaw": "Intent refinement is bounded PMCR-O work: I plan the smallest interpretation justified by confirmed evidence, make a clearer frame, check fidelity to the immutable source, and reflect unresolved meaning without inventing it.",
+  "progressiveClarity": {
+    "rule": "Clarity may increase across cycles while raw intent never changes.",
+    "monotonicity": "Later hypotheses may add supported specificity, remove disproven assumptions, or downgrade uncertain claims; provenance is never erased.",
+    "completion": "A goal may complete with unresolved nonessential details when CHECK verifies the bounded result satisfies confirmed intent and completion criteria."
+  },
+  "authorityGrantedByInterpretation": false,
+  "executionPerformedByIntentRefinement": false,
+  "safety": {
+    "mindReadingClaim": false,
+    "privateChainOfThoughtRequired": false,
+    "authorityFromInterpretation": false,
+    "validatedIntentDoesNotEqualGrant": true
+  }
+}

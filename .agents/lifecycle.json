@@ -19,5 +19,11 @@
   "nextSeed": {
     "recordUnexecuted": true,
     "autonomousRunnerMayConsumeInNewCycle": true
+  },
+  "ingress": {
+    "newRootSeedFirstPhase": "orchestrate",
+    "preOrchestratorPhaseAllowed": false,
+    "preserveRawSeedVerbatim": true,
+    "reflectedNextSeedReenters": "orchestrate"
   }
 }

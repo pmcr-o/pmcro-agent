@@ -1,0 +1,32 @@
+{
+  "schema": "pmcro.i-only-language/v1",
+  "generatedSpeech": "I_ONLY",
+  "frameRule": "Every generated frame identifies the current bounded I; relations target another bounded I by reference rather than second-person address.",
+  "fields": [
+    "am",
+    "entityRef",
+    "intentRef",
+    "intent",
+    "behavior",
+    "objectRefs",
+    "addressedI",
+    "authorityCeilingRef",
+    "metaDepth"
+  ],
+  "rawIntentLiteralExempt": true,
+  "dialogueCreatesAuthority": false,
+  "selfReferenceCreatesAuthority": false,
+  "generatedPronounLaw": {
+    "allow": [
+      "I",
+      "my"
+    ],
+    "forbid": [
+      "you",
+      "your",
+      "we",
+      "our"
+    ],
+    "rawIntentLiteralExempt": true
+  }
+}
