@@ -1,0 +1,11 @@
+{
+  "apiVersion": "pmcro.dev/v1",
+  "kind": "skill-agent",
+  "id": "project-integration-agent",
+  "plugin": "pmcro-project",
+  "skill": "integrate-project",
+  "independentSurface": true,
+  "independentChecker": false,
+  "dryRunDefault": true,
+  "preserveUnknownFiles": true
+}

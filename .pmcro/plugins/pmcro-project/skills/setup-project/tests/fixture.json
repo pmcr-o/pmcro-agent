@@ -1,0 +1,4 @@
+{
+  "target": "tests/fixture-project",
+  "expectedMutation": false
+}

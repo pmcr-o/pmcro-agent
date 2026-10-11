@@ -1,0 +1,5 @@
+{
+  "schema": "pmcro.project.setup/v1",
+  "target": "<path>",
+  "mutation": false
+}

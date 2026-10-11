@@ -14,6 +14,7 @@ A reusable PMCR-O repository template and executable learning environment for bo
 
 - Open `docs/index.html` or the GitHub Pages site.
 - Grok: `docs/tutorials/grok.md`
+- Action-powered learning: `./eng/learn.ps1 -Action list` (local workflow execution delegates to `github-agent/local-actions`)
 - Architecture: `docs/ARCHITECTURE.md`
 - Extend marketplaces: `docs/MARKETPLACE-EXTENSION.md`
 - Run the same real cycle manually: `eng/run-tutorial.ps1`

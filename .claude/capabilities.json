@@ -53,6 +53,16 @@
       "route": "@pmcro-agent /pmcro-planner:plan"
     },
     {
+      "plugin": "pmcro-project",
+      "skill": "integrate-project",
+      "route": "@pmcro-agent /pmcro-project:integrate-project"
+    },
+    {
+      "plugin": "pmcro-project",
+      "skill": "setup-project",
+      "route": "@pmcro-agent /pmcro-project:setup-project"
+    },
+    {
       "plugin": "pmcro-reflector",
       "skill": "reflect",
       "route": "@pmcro-agent /pmcro-reflector:reflect"

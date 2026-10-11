@@ -3,7 +3,7 @@ Import-Module (Join-Path $PSScriptRoot 'queue.psm1') -Force -DisableNameChecking
 $c=Get-QueueConfig;$q=Get-QueueRoot;$now=UtcNow
 foreach($dir in @('inbox','processing','delayed')){
   foreach($f in @(Get-ChildItem -LiteralPath (Join-Path $q $dir) -Filter '*.json' -File -ErrorAction SilentlyContinue)){
-    try{$m=Get-Content -LiteralPath $f.FullName -Raw|ConvertFrom-Json;Validate-Message $m $c|Out-Null}catch{continue}
+    try{$m=Read-QueueJson $f.FullName;Validate-Message $m $c|Out-Null}catch{continue}
     if($m.expiresAt -and [DateTimeOffset]::Parse([string]$m.expiresAt) -le $now){$dest=Join-Path $q "dead-letter/$($m.messageId).json";Move-Item -LiteralPath $f.FullName -Destination $dest -Force;$s=Read-State $m.messageId;if(-not $s){$s=[pscustomobject]@{messageId=$m.messageId;attempt=0}};$s.status='DEAD_LETTER';$s.lastError='expired';$s.updatedAt=Iso $now;Write-State $m.messageId $s;continue}
     $s=Read-State $m.messageId
     if($dir -eq 'processing' -and $s -and $s.leaseUntil -and [DateTimeOffset]::Parse([string]$s.leaseUntil) -le $now){

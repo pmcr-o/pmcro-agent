@@ -1,0 +1,62 @@
+name: learn-pmcro
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.pmcro/**'
+      - '.agents/**'
+      - '.claude/**'
+      - '.grok/**'
+      - '.cursor/**'
+      - '.github/**'
+      - 'eng/lessons/**'
+      - 'eng/learn.ps1'
+jobs:
+  lesson-authority:
+    name: '01 · authority'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        if: ${{ !env.ACT }}
+      - shell: pwsh
+        run: ./eng/lessons/authority.ps1
+
+  lesson-projections:
+    name: '02 · projections'
+    needs: lesson-authority
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        if: ${{ !env.ACT }}
+      - shell: pwsh
+        run: ./eng/lessons/projections.ps1
+
+  lesson-queue:
+    name: '03 · queue'
+    needs: lesson-projections
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        if: ${{ !env.ACT }}
+      - shell: pwsh
+        run: ./eng/lessons/queue.ps1
+
+  lesson-lifecycle:
+    name: '04 · lifecycle'
+    needs: lesson-queue
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        if: ${{ !env.ACT }}
+      - shell: pwsh
+        run: ./eng/lessons/lifecycle.ps1
+
+  lesson-marketplace:
+    name: '05 · marketplace extension'
+    needs: lesson-lifecycle
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        if: ${{ !env.ACT }}
+      - shell: pwsh
+        run: ./eng/lessons/marketplace.ps1

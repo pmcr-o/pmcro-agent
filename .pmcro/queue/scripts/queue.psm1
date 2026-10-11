@@ -1,7 +1,13 @@
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
 function Get-QueueRoot { Split-Path -Parent $PSScriptRoot }
-function Get-QueueConfig { Get-Content -LiteralPath (Join-Path (Get-QueueRoot) 'config.json') -Raw | ConvertFrom-Json }
+function ConvertFrom-QueueJson([string]$Json){
+  $cmd=Get-Command ConvertFrom-Json -CommandType Cmdlet
+  if(-not $cmd.Parameters.ContainsKey('DateKind')){throw 'PMCR-O queue requires PowerShell 7.5+ so JSON date-like strings can remain strings during digest verification'}
+  $Json | ConvertFrom-Json -DateKind String
+}
+function Read-QueueJson([string]$Path){ConvertFrom-QueueJson (Get-Content -LiteralPath $Path -Raw)}
+function Get-QueueConfig { Read-QueueJson (Join-Path (Get-QueueRoot) 'config.json') }
 function Assert-SafeId([string]$Value,[string]$Name){if([string]::IsNullOrWhiteSpace($Value)-or $Value -notmatch '^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$'){throw "$Name is invalid"}}
 function UtcNow { [DateTimeOffset]::UtcNow }
 function Iso([DateTimeOffset]$Value){$Value.ToString('yyyy-MM-ddTHH:mm:ss.fffZ')}
@@ -31,6 +37,6 @@ function Validate-Message($m,$config){
 function Find-Envelope([string]$MessageId){
   $q=Get-QueueRoot;foreach($d in @('inbox','processing','delayed','completed','dead-letter')){$p=Join-Path $q "$d/$MessageId.json";if(Test-Path -LiteralPath $p -PathType Leaf){return $p}};return $null
 }
-function Read-State([string]$MessageId){$p=Join-Path (Get-QueueRoot) "state/$MessageId.json";if(Test-Path -LiteralPath $p){Get-Content -LiteralPath $p -Raw|ConvertFrom-Json}else{$null}}
+function Read-State([string]$MessageId){$p=Join-Path (Get-QueueRoot) "state/$MessageId.json";if(Test-Path -LiteralPath $p){Read-QueueJson $p}else{$null}}
 function Write-State([string]$MessageId,$State){Write-JsonAtomic (Join-Path (Get-QueueRoot) "state/$MessageId.json") $State}
 Export-ModuleMember -Function *

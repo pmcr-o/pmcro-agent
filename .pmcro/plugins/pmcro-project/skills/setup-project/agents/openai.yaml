@@ -1,0 +1,4 @@
+interface:
+  display_name: "PMCR-O Project Setup"
+  short_description: "Inspect a repository before PMCR-O integration"
+  default_prompt: "Use $setup-project through @pmcro-agent /pmcro-project:setup-project."

@@ -1,0 +1,13 @@
+{
+  "schema": "pmcro.learning/v1",
+  "runner": "act",
+  "workflow": ".github/workflows/learn.yml",
+  "unlockRule": "a lesson unlocks only after its prerequisite lesson has a local PASS receipt or the corresponding GitHub Actions job is confirmed successful",
+  "modules": [
+    {"id":"01-authority","job":"lesson-authority","title":"One source of authority","prerequisites":[],"teaches":".host -> .agents -> .pmcro and no clarification gate"},
+    {"id":"02-projections","job":"lesson-projections","title":"Host projections","prerequisites":["01-authority"],"teaches":"Claude, Grok, Cursor, and GitHub mirror .agents without widening authority"},
+    {"id":"03-queue","job":"lesson-queue","title":"Durable message handoff","prerequisites":["02-projections"],"teaches":"enqueue, claim, ACK, idempotent replay, local trail ownership"},
+    {"id":"04-lifecycle","job":"lesson-lifecycle","title":"Earn a checker PASS","prerequisites":["03-queue"],"teaches":"ORCHESTRATE -> PLAN -> MAKE -> CHECK -> REFLECT using the real scripts"},
+    {"id":"05-marketplace","job":"lesson-marketplace","title":"Extend the marketplace","prerequisites":["04-lifecycle"],"teaches":"reuse validated domain agents first; create missing capabilities only through skill-creator"}
+  ]
+}

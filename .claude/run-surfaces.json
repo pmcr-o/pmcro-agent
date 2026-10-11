@@ -50,6 +50,15 @@
       "notes": "Repository host projection plus Actions validation."
     },
     {
+      "id": "github-local-actions",
+      "label": "Local GitHub Actions",
+      "kind": "runtime-adapter",
+      "status": "VALIDATED",
+      "agent": "github-agent",
+      "skill": "local-actions",
+      "notes": "Local workflow execution delegates to @github-agent /github:local-actions; dry-run by default and real jobs require explicit apply."
+    },
+    {
       "id": "desktop-commander",
       "label": "Desktop Commander",
       "kind": "runtime-adapter",

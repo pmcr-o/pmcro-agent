@@ -1,0 +1,4 @@
+interface:
+  display_name: "PMCR-O Project Integration"
+  short_description: "Integrate PMCR-O into an existing repository"
+  default_prompt: "Use $integrate-project through @pmcro-agent /pmcro-project:integrate-project. Dry-run before apply."

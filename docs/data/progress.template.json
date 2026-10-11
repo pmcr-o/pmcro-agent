@@ -1,0 +1,11 @@
+{
+  "schema": "pmcro.learning.progress/v1",
+  "updatedAt": null,
+  "modules": [
+    {"id":"01-authority","title":"One source of authority","state":"AVAILABLE"},
+    {"id":"02-projections","title":"Host projections","state":"LOCKED"},
+    {"id":"03-queue","title":"Durable message handoff","state":"LOCKED"},
+    {"id":"04-lifecycle","title":"Earn a checker PASS","state":"LOCKED"},
+    {"id":"05-marketplace","title":"Extend the marketplace","state":"LOCKED"}
+  ]
+}

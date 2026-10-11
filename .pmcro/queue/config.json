@@ -9,6 +9,8 @@
   "ordering": "best-effort FIFO by inbox write time; correctness must not depend on global order",
   "delivery": "at-least-once",
   "deduplication": "messageId + dedupeDigest; contentDigest protects exact envelope bytes/fields",
+  "powershellMinimum": "7.5",
+  "jsonDatePolicy": "string",
   "allowedKinds": [
     "pmcro.seed",
     "orchestrator.route",

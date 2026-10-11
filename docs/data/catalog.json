@@ -50,6 +50,16 @@
       "description": "Plan the minimum PMCR-O work from a seed and a plugin. Read-only."
     },
     {
+      "id": "integrate-project",
+      "plugin": "pmcro-project",
+      "description": "Integrate PMCR-O control, agent, host, queue, and external-domain references into an existing project; dry-run by default and apply only explicitly."
+    },
+    {
+      "id": "setup-project",
+      "plugin": "pmcro-project",
+      "description": "Inspect an existing project and produce a dry-run PMCR-O integration plan without changing the project."
+    },
+    {
       "id": "reflect",
       "plugin": "pmcro-reflector",
       "description": "Record one earned constraint and one unexecuted next seed."

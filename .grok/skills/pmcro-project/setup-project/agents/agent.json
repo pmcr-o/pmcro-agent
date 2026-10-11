@@ -1,0 +1,10 @@
+{
+  "apiVersion": "pmcro.dev/v1",
+  "kind": "skill-agent",
+  "id": "project-setup-agent",
+  "plugin": "pmcro-project",
+  "skill": "setup-project",
+  "independentSurface": true,
+  "independentChecker": false,
+  "mutation": false
+}

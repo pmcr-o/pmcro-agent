@@ -1,0 +1,8 @@
+{
+  "name": "pmcro-project",
+  "version": "1.0.0",
+  "description": "PMCR-O project setup and integration capabilities.",
+  "skills": [
+    "./skills/"
+  ]
+}

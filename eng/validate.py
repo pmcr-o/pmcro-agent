@@ -19,6 +19,10 @@ for n in ['catalog.json','index.json','routing.json','lifecycle.json','grants.js
 for plugin in sorted(x for x in (R/'.pmcro/plugins').iterdir() if x.is_dir()):
  ok((R/'plugins'/plugin.name).is_dir(),f'root plugin projection {plugin.name}')
 q=R/'.pmcro/queue/scripts';ok(all((q/n).is_file() for n in ['enqueue.ps1','claim.ps1','ack.ps1','nack.ps1','recover.ps1']),'durable queue scripts')
+qc=j(R/'.pmcro/queue/config.json');ok(qc.get('jsonDatePolicy')=='string' and qc.get('powershellMinimum')=='7.5','queue preserves JSON date strings for stable digests')
+ok((R/'tests/queue-cross-platform.ps1').is_file(),'cross-platform queue smoke test present')
+ok({'setup-project','integrate-project'}.issubset({x['id'] for x in cat['skills'] if x['plugin']=='pmcro-project'}),'project setup/integration skills registered')
 ag=j(R/'.pmcro/protocol/agent-agreement.schema.json');ok(ag['sharedMutableTrail'] is False and ag['receiverCreatesLocalTrail'] is True,'local trail ownership')
 s=j(R/'.pmcro/control/run-surfaces.json');ok(any(x['id']=='grok' and x['status']=='PROJECTED' for x in s['surfaces']),'Grok documented as projected host')
+ok(any(x['id']=='github-local-actions' and x['status']=='VALIDATED' and x.get('agent')=='github-agent' for x in s['surfaces']),'local Actions delegated to github-agent')
 print(f'SUMMARY pass={len(passed)} fail={len(fail)}');raise SystemExit(1 if fail else 0)

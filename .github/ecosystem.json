@@ -6,7 +6,7 @@
       "id": "pmcro-agent",
       "status": "canonical",
       "role": "global-orchestrator",
-      "skills": 14
+      "skills": 16
     },
     {
       "id": "csuite-agent",
@@ -36,7 +36,7 @@
       "id": "github-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 7
+      "skills": 8
     },
     {
       "id": "docker-agent",
@@ -73,6 +73,24 @@
       "status": "canonical",
       "role": "domain-orchestrator",
       "skills": 4
+    },
+    {
+      "id": "reasoning-agent",
+      "status": "canonical",
+      "role": "domain-orchestrator",
+      "skills": 8
+    },
+    {
+      "id": "maf-agent",
+      "status": "canonical",
+      "role": "domain-orchestrator",
+      "skills": 3
+    },
+    {
+      "id": "social-media-agent",
+      "status": "canonical",
+      "role": "domain-orchestrator",
+      "skills": 3
     }
   ],
   "rule": "pmcro-agent is global; each domain agent is an independently addressable orchestrator; skills/scripts are executable capabilities."

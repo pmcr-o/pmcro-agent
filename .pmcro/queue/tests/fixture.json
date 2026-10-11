@@ -2,7 +2,7 @@
   "kind": "agent.handoff",
   "messageId": "fixture-001",
   "sourceAgent": "pmcro-agent",
-  "targetAgent": "csuite-agent",
+  "targetAgent": "pmcro-agent",
   "trailId": "trail:fixture",
   "cycleId": "cycle:fixture",
   "evidenceStatus": "NOT-RUN"
