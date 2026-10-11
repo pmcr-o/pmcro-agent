@@ -4,4 +4,4 @@
 .cursor/ -> .agents/ -> .pmcro/
 ```
 
-Host files cannot widen grants, change lifecycle order, or self-certify checker evidence.
+Host files cannot widen grants, change lifecycle order, self-certify checker evidence, or require manual phase invocation.

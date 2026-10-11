@@ -39,7 +39,7 @@ $score = [ordered]@{
     handsToMake = 1
 }
 $row = [ordered]@{
-    seq = $events.Count + 1; phase = 'plan'; response = "I AM the $(Get-PhaseRoute plan)"; hookBefore = (Get-BeforeHook -Phase plan -Seed $admit.message); hookAfter = (Get-AfterHook -Phase plan -Seed $admit.message -Next '@maker /pmcro:make'); level = 1; loaded = @('.agents/catalog.json')
+    seq = $events.Count + 1; phase = 'plan'; response = "I AM the Planner"; hookBefore = (Get-BeforeHook -Phase plan -Seed $admit.message); hookAfter = (Get-AfterHook -Phase plan -Seed $admit.message -Next '@maker /pmcro:make'); level = 1; loaded = @('.agents/catalog.json')
     action = $admit.decision; source = $admit.source; route = $admit.route; message = $admit.message
     skillCreator = [ordered]@{ present = $true; call = $false }
     bareMinimum = $true; steps = $steps; dropped = $dropped
