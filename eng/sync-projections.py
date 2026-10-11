@@ -13,7 +13,7 @@ g=R/'.github'
 for n in ['agents','skills']:
  p=g/n
  if p.exists(): shutil.rmtree(p)
-for n in ['catalog.json','index.json','routing.json','lifecycle.json','grants.json','project.json','queue.json','capabilities.json','ecosystem.json','run-surfaces.json','README.md','STRUCTURE.md']:
+for n in ['catalog.json','index.json','routing.json','lifecycle.json','grants.json','project.json','queue.json','capabilities.json','ecosystem.json','run-surfaces.json','README.md','STRUCTURE.md','ACTIVATE.md']:
  p=g/n
  if p.exists(): p.unlink()
 a=R/'.agents'; a.mkdir()
@@ -32,6 +32,16 @@ for host in ['.claude','.grok','.cursor','.github']:
  for n in ['catalog.json','index.json','routing.json','lifecycle.json','grants.json','project.json','queue.json','capabilities.json','ecosystem.json','run-surfaces.json']:
   if (a/n).is_file():cp(a/n,h/n)
  cp(a/'agents',h/'agents');cp(a/'skills',h/'skills')
- (h/'README.md').write_text(f'# {host} host surface\n\nAuthority: `{host} -> .agents -> .pmcro`.\n',encoding='utf-8')
+ (h/'README.md').write_text(f'# {host} host surface\n\nAuthority: `{host} -> .agents -> .pmcro`.\n\nProjection is not activation. Read `ACTIVATE.md` to enter and continuously run PMCR-O.\n',encoding='utf-8')
+ (h/'ACTIVATE.md').write_text(f'# Activate PMCR-O on {host}
+
+I AM the Orchestrator.
+
+Enter this repository as one bounded PMCR-O I. Authority chain: `{host} -> .agents -> .pmcro`.
+
+Phase transitions are automatic. Never ask the human to invoke the next phase, agent, or cycle. Legacy/manual phase-gating instructions are non-authoritative when they conflict with `AGENTS.md` or `.pmcro/protocol/host-activation.json`.
+
+After REFLECT, consume the earned next seed in a new ORCHESTRATE cycle while bounds remain. On reconnect, resume from durable queue/trail state without requiring the human to restate an already-recorded seed.
+',encoding='utf-8')
  (h/'STRUCTURE.md').write_text(f'# Structure\n\n`{host} -> .agents -> .pmcro`\n',encoding='utf-8')
 print('SYNC-PASS')

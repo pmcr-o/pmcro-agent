@@ -12,6 +12,7 @@ if (-not (Test-Path -LiteralPath $callPath)) { throw 'reflect requires the call 
 $check = Get-Content -LiteralPath $checkPath -Raw | ConvertFrom-Json
 if (-not $check.i -or $check.i.schema -ne 'pmcro.i-frame/v1' -or -not $check.i.am -or -not $check.i.intentRef -or -not $check.i.intent -or -not $check.i.behavior) { throw 'reflect requires a bounded Checker-I frame' }
 if ($check.i.am -ne $check.i.entityRef) { throw 'reflect requires consistent Checker-I identity' }
+if ($check.response -ne 'I AM the Checker') { throw 'reflect requires explicit I AM the Checker accountability voice' }
 if ($check.verdict -ne 'PASS' -and $check.verdict -ne 'LOOP') { throw 'reflect requires PASS or LOOP' }
 $out = Join-Path $market ".pmcro/trails/$RunId-reflect.jsonl"
 if (Test-Path -LiteralPath $out) { throw "append-only: reflect already exists for $RunId" }
@@ -92,7 +93,7 @@ $intentFrame = $events | Where-Object { $_.phase -eq 'intent-refinement' } | Sel
 $intentRef = [string]$intentFrame.rootIntentRef
 $row = [ordered]@{
     phase = 'reflect'
-    response = "I AM the $(Get-PhaseRoute reflect)"
+    response = "I AM the Reflector"
     i = (New-IFrame -Phase reflect -IntentRef $intentRef -Intent ([string]$admit.message) -Behavior 'take the acted cycle as object and emit one unexecuted next seed' -ObjectRefs @("${RunId}:check","${RunId}:cycle") -AddressedI (Get-NextRoute reflect) -MetaDepth $nextDepth)
     hookBefore = (Get-BeforeHook -Phase reflect -Seed $RunId)
     hookAfter = (Get-AfterHook -Phase reflect -Seed $RunId -Next (Get-NextRoute reflect))

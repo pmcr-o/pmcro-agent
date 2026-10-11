@@ -127,7 +127,7 @@ if ($makeScored.score) {
 }
 $verdict = if ($fail.Count -eq 0) { 'PASS' } else { 'LOOP' }
 $row = [ordered]@{
-    phase = 'check'; response = "I AM the $(Get-PhaseRoute check)"; hookBefore = (Get-BeforeHook -Phase check -Seed $RunId); hookAfter = (Get-AfterHook -Phase check -Seed $RunId -Next '@reflector /pmcro:reflect'); verdict = $verdict; runId = $RunId; failures = @($fail)
+    phase = 'check'; response = "I AM the Checker"; hookBefore = (Get-BeforeHook -Phase check -Seed $RunId); hookAfter = (Get-AfterHook -Phase check -Seed $RunId -Next '@reflector /pmcro:reflect'); verdict = $verdict; runId = $RunId; failures = @($fail)
     matrix = $matrix
     mustFail = 'level 3 before SKILL.md threw'; goalProbe = $probeId; nextCall = '@reflector /pmcro:reflect'
 }

@@ -100,6 +100,7 @@ foreach ($claim in @($intentArtifact.validatedClaims)) {
     if ($claim.status -ne 'CONFIRMED' -or -not $claim.claimId -or -not $claim.sourceExcerpt -or $start -lt 0 -or $end -le $start -or $end -gt $rawSeed.Length -or $rawSeed.Substring($start,$end-$start) -ne [string]$claim.sourceExcerpt) { throw 'HALT: intent refinement contains a claim without exact CONFIRMED source grounding' }
 }
 $message = [string]$intentArtifact.workingIntent
+$refinedIntent = [string]$intentArtifact.workingIntent
 $known = [ordered]@{ present = $true; operations = @('create', 'read', 'update', 'delete'); call = $false }
 $named = $false
 $updatedIntent = ''
@@ -144,12 +145,22 @@ else {
         $route = ''
     }
 }
+$routingChanged = ($message -ne $refinedIntent)
+$messageOrigin = if ($routingChanged) { 'catalog' } else { 'intent' }
+$routingTransformation = [ordered]@{
+    changed = [bool]$routingChanged
+    fromIntent = $refinedIntent
+    toMessage = [string]$message
+    source = $(if ($routingChanged) { '.agents/catalog.json' } else { $intentArtifactPath })
+    reason = $reason
+    authorityGranted = $false
+}
 $intentRow = [ordered]@{
-    seq = 1; phase = 'intent-refinement'; response = "I AM the $(Get-PhaseRoute orchestrate)"; i = (New-IFrame -Phase orchestrate -IntentRef $intentArtifact.rootIntentRef -Intent ([string]$intentArtifact.workingIntent) -Behavior 'refine raw seed into validated working intent' -ObjectRefs @($intentArtifact.rootIntentRef) -AddressedI '@orchestrator /reasoning:intent-refinement' -MetaDepth $metaIn); ownerPhase = 'ORCHESTRATE'; invokedBy = 'orchestrator'; action = 'invoke'; route = '@orchestrator /reasoning:intent-refinement'; rootIntentRef = $intentArtifact.rootIntentRef; rawIntent = $intentArtifact.rawIntent; workingIntent = $intentArtifact.workingIntent; validatedClaims = @($intentArtifact.validatedClaims); unresolvedFragments = @($intentArtifact.unresolvedFragments); artifactRef = '.pmcro/runtime/intent-refinement/' + $RunId + '.json'; authorityGranted = $false; executionPerformed = $false
+    seq = 1; phase = 'intent-refinement'; response = "I AM the Orchestrator"; i = (New-IFrame -Phase orchestrate -IntentRef $intentArtifact.rootIntentRef -Intent ([string]$intentArtifact.workingIntent) -Behavior 'refine raw seed into validated working intent' -ObjectRefs @($intentArtifact.rootIntentRef) -AddressedI '@orchestrator /reasoning:intent-refinement' -MetaDepth $metaIn); ownerPhase = 'ORCHESTRATE'; invokedBy = 'orchestrator'; action = 'invoke'; route = '@orchestrator /reasoning:intent-refinement'; rootIntentRef = $intentArtifact.rootIntentRef; rawIntent = $intentArtifact.rawIntent; workingIntent = $intentArtifact.workingIntent; validatedClaims = @($intentArtifact.validatedClaims); unresolvedFragments = @($intentArtifact.unresolvedFragments); artifactRef = '.pmcro/runtime/intent-refinement/' + $RunId + '.json'; authorityGranted = $false; executionPerformed = $false
 }
 $row = [ordered]@{
-    seq = 2; phase = 'orchestrate'; response = "I AM the $(Get-PhaseRoute orchestrate)"; i = (New-IFrame -Phase orchestrate -IntentRef $intentArtifact.rootIntentRef -Intent ([string]$intentArtifact.workingIntent) -Behavior 'admit deny bound and route refined intent' -ObjectRefs @($intentArtifact.rootIntentRef, "${RunId}:intent-refinement") -AddressedI (Get-NextRoute orchestrate) -MetaDepth $metaIn); hookBefore = (Get-BeforeHook -Phase orchestrate -Seed $message); hookAfter = (Get-AfterHook -Phase orchestrate -Seed $message -Next (Get-NextRoute orchestrate)); level = 1; loaded = @('.agents/catalog.json')
-    decision = $decision; source = $Source; goal = $(if ($updatedIntent) { $updatedIntent } else { $message }); message = $message
+    seq = 2; phase = 'orchestrate'; response = "I AM the Orchestrator"; i = (New-IFrame -Phase orchestrate -IntentRef $intentArtifact.rootIntentRef -Intent ([string]$intentArtifact.workingIntent) -Behavior 'admit deny bound and route refined intent' -ObjectRefs @($intentArtifact.rootIntentRef, "${RunId}:intent-refinement") -AddressedI (Get-NextRoute orchestrate) -MetaDepth $metaIn); hookBefore = (Get-BeforeHook -Phase orchestrate -Seed $message); hookAfter = (Get-AfterHook -Phase orchestrate -Seed $message -Next (Get-NextRoute orchestrate)); level = 1; loaded = @('.agents/catalog.json')
+    decision = $decision; source = $Source; goal = $(if ($updatedIntent) { $updatedIntent } else { $refinedIntent }); workingIntent = $refinedIntent; message = $message; messageOrigin = $messageOrigin; routingTransformation = $routingTransformation
     plugin = $Plugin; skill = $Skill; reason = $reason; route = $route
     skillCreator = $known; nextCall = (Get-NextRoute orchestrate)
 }

@@ -15,7 +15,7 @@ $admit = $events | Where-Object { $_.phase -eq 'orchestrate' } | Select-Object -
 $seed = [string]$admit.message
 $before = Get-BeforeHook -Phase make -Seed $seed
 $after = Get-AfterHook -Phase make -Seed $seed -Next '@checker /pmcro:check'
-$response = "I AM the $(Get-PhaseRoute make)"
+$response = "I AM the Maker"
 Write-Output $before
 $utf8 = [Text.UTF8Encoding]::new($false)
 try {

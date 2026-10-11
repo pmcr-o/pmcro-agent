@@ -16,7 +16,7 @@ $intentRef = [string]@($events | Where-Object { $_.phase -eq 'intent-refinement'
 $seed = [string]$admit.message
 $before = Get-BeforeHook -Phase make -Seed $seed
 $after = Get-AfterHook -Phase make -Seed $seed -Next (Get-NextRoute make)
-$response = "I AM the $(Get-PhaseRoute make)"
+$response = "I AM the Maker"
 Write-Output $before
 $utf8 = [Text.UTF8Encoding]::new($false)
 try {

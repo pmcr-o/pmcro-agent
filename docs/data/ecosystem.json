@@ -1,6 +1,6 @@
 {
   "schema": "pmcro.ecosystem/v1",
-  "generatedFrom": "A:/marketplace/catalog.json",
+  "generatedFrom": "catalog.json",
   "agents": [
     {
       "id": "pmcro-agent",
@@ -178,5 +178,5 @@
       "repository": "https://github.com/pmcr-o/economics-agent"
     }
   ],
-  "rule": "pmcro-agent is global; each domain agent is an independently addressable orchestrator; skills/scripts are executable capabilities."
+  "rule": "pmcro-agent is global; domain agents are independently addressable orchestrators; skills/scripts are executable capabilities."
 }

@@ -41,7 +41,7 @@ foreach ($event in $events) {
 }
 if (-not $intent) { $fail += 'missing mandatory intent-refinement ingress frame' }
 else {
-    if ($intent.response -ne "I AM the $(Get-PhaseRoute orchestrate)") { $fail += 'intent refinement did not speak as Orchestrator-I' }
+    if ($intent.response -ne "I AM the Orchestrator") { $fail += 'intent refinement did not speak as Orchestrator-I' }
     if ($intent.ownerPhase -ne 'ORCHESTRATE' -or $intent.invokedBy -ne 'orchestrator') { $fail += 'intent refinement is not owned by ORCHESTRATE' }
     if ($intent.authorityGranted -ne $false -or $intent.executionPerformed -ne $false) { $fail += 'intent refinement widened authority or executed work' }
     if (-not $intent.rawIntent -or -not $intent.workingIntent) { $fail += 'intent refinement omitted raw or working intent' }
@@ -50,7 +50,17 @@ else {
         $raw=[string]$intent.rawIntent; $start=[int]$claim.sourceStart; $end=[int]$claim.sourceEnd
         if ($claim.status -ne 'CONFIRMED' -or -not $claim.claimId -or -not $claim.sourceExcerpt -or $start -lt 0 -or $end -le $start -or $end -gt $raw.Length -or $raw.Substring($start,$end-$start) -ne [string]$claim.sourceExcerpt) { $fail += 'intent refinement has claim without exact CONFIRMED source grounding' }
     }
-    if ($admit.message -ne $intent.workingIntent) { $fail += 'orchestrate did not consume the refined working intent' }
+    if (-not $admit.workingIntent -or $admit.workingIntent -ne $intent.workingIntent) { $fail += 'orchestrate did not preserve the refined working intent' }
+    if ($admit.message -ne $intent.workingIntent) {
+        if ($admit.messageOrigin -ne 'catalog' -or -not $admit.routingTransformation -or $admit.routingTransformation.changed -ne $true -or $admit.routingTransformation.fromIntent -ne $intent.workingIntent -or $admit.routingTransformation.toMessage -ne $admit.message -or $admit.routingTransformation.source -ne '.agents/catalog.json' -or $admit.routingTransformation.authorityGranted -ne $false) { $fail += 'orchestrate changed the handoff message without explicit catalog routing evidence' }
+        if ($admit.plugin -and $admit.skill) {
+            $catalogDoc = Get-Content -LiteralPath (Join-Path $market '.agents/catalog.json') -Raw | ConvertFrom-Json
+            $catalogHit = @($catalogDoc.skills | Where-Object { $_.plugin -eq $admit.plugin -and $_.id -eq $admit.skill } | Select-Object -First 1)
+            if ($catalogHit.Count -ne 1 -or [string]$catalogHit[0].description -ne [string]$admit.message) { $fail += 'catalog routing message does not match the selected capability description' }
+        } else { $fail += 'catalog routing transformation omitted selected plugin/skill' }
+    } else {
+        if ($admit.messageOrigin -ne 'intent' -or $admit.routingTransformation.changed -ne $false) { $fail += 'unchanged intent was mislabeled as a routing transformation' }
+    }
 }
 if ($admit.skillCreator.present -ne $true -or $admit.skillCreator.call -ne $false) { $fail += 'skill-creator was not a default present capability' }
 if ($plan.bareMinimum -ne $true) { $fail += 'plan is not the bare minimum' }
@@ -80,7 +90,7 @@ foreach ($event in $events) {
         if ($path -match '/(references|scripts)/' -and -not $seenBody) { $fail += "level 3 recorded before a skill body: $path" }
     }
 }
-$voice = @{ 'intent-refinement' = (Get-PhaseRoute orchestrate); orchestrate = (Get-PhaseRoute orchestrate); plan = (Get-PhaseRoute plan); make = (Get-PhaseRoute make) }
+$voice = @{ 'intent-refinement' = 'Orchestrator'; orchestrate = 'Orchestrator'; plan = 'Planner'; make = 'Maker' }
 foreach ($event in $events) {
     $expectedVoice = "I AM the $($voice[$event.phase])"
     if ($event.response -ne $expectedVoice) { $fail += "frame $($event.phase) did not respond as $expectedVoice" }
@@ -168,7 +178,7 @@ if ($makeScored.score) {
 $verdict = if ($fail.Count -eq 0) { 'PASS' } else { 'LOOP' }
 $intentRef = [string]@($events | Where-Object { $_.phase -eq 'intent-refinement' } | Select-Object -First 1).rootIntentRef
 $row = [ordered]@{
-    phase = 'check'; response = "I AM the $(Get-PhaseRoute check)"; i = (New-IFrame -Phase check -IntentRef $intentRef -Intent ([string]$admit.message) -Behavior 'independently judge lifecycle evidence' -ObjectRefs @("${RunId}:orchestrate","${RunId}:plan","${RunId}:make") -AddressedI (Get-NextRoute check)); hookBefore = (Get-BeforeHook -Phase check -Seed $RunId); hookAfter = (Get-AfterHook -Phase check -Seed $RunId -Next (Get-NextRoute check)); verdict = $verdict; runId = $RunId; failures = @($fail)
+    phase = 'check'; response = "I AM the Checker"; i = (New-IFrame -Phase check -IntentRef $intentRef -Intent ([string]$admit.message) -Behavior 'independently judge lifecycle evidence' -ObjectRefs @("${RunId}:orchestrate","${RunId}:plan","${RunId}:make") -AddressedI (Get-NextRoute check)); hookBefore = (Get-BeforeHook -Phase check -Seed $RunId); hookAfter = (Get-AfterHook -Phase check -Seed $RunId -Next (Get-NextRoute check)); verdict = $verdict; runId = $RunId; failures = @($fail)
     matrix = $matrix
     mustFail = 'level 3 before SKILL.md threw'; goalProbe = $probeId; nextCall = (Get-NextRoute check)
 }

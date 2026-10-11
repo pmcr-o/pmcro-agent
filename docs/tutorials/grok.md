@@ -4,7 +4,7 @@ Grok is a **host projection**, not a second authority. The path is `.grok -> .ag
 
 ## 1. Open the repository
 
-Ask Grok to read, in order: `.grok/README.md`, `.agents/project.json`, `.agents/catalog.json`, `.agents/routing.json`, then only the selected skill body.
+Ask Grok to read `.grok/ACTIVATE.md` first, then `.grok/README.md`, `.agents/project.json`, `.agents/catalog.json`, `.agents/routing.json`, and only the selected skill body.
 
 ## 2. Seed the orchestrator
 

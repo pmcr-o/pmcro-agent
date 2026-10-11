@@ -12,6 +12,18 @@ function Get-PhaseRoute {
     }
 }
 
+function Get-PhaseTitle {
+    param([Parameter(Mandatory = $true)][string]$Phase)
+    switch ($Phase) {
+        'orchestrate' { 'Orchestrator' }
+        'plan' { 'Planner' }
+        'make' { 'Maker' }
+        'check' { 'Checker' }
+        'reflect' { 'Reflector' }
+        default { throw "unknown phase $Phase" }
+    }
+}
+
 function Get-NextRoute {
     param([Parameter(Mandatory = $true)][string]$Phase)
     switch ($Phase) {
@@ -53,7 +65,7 @@ function Get-BeforeHook {
     $route = Get-PhaseRoute $Phase
     $from = Get-PreviousPhase $Phase
     $nextPhase = Get-NextPhase $Phase
-    $line = "I AM the $route | ACCOUNTABILITY | PHASE=$($Phase.ToUpperInvariant()) | FROM=$from | NEXT=$nextPhase | AUTHORITY=.agents/grants.json | NO_JUMP=true"
+    $line = "I AM the $(Get-PhaseTitle $Phase) | ACCOUNTABILITY | PHASE=$($Phase.ToUpperInvariant()) | FROM=$from | NEXT=$nextPhase | AUTHORITY=.agents/grants.json | NO_JUMP=true"
     if ($Seed) { $line = "$line | INTENT=$Seed" }
     return $line
 }
@@ -63,7 +75,7 @@ function Get-AfterHook {
     if ($Phase -eq 'reflect') { $Next = Get-NextRoute reflect }
     $route = Get-PhaseRoute $Phase
     $nextPhase = Get-NextPhase $Phase
-    $line = "I AM the $route | HANDOFF | NEXT_PHASE=$nextPhase | NEXT_I=$Next | NO_JUMP=true"
+    $line = "I AM the $(Get-PhaseTitle $Phase) | HANDOFF | NEXT_PHASE=$nextPhase | NEXT_I=$Next | NO_JUMP=true"
     if ($Seed) { $line = "$line | OBJECT=$Seed" }
     return $line
 }
@@ -109,4 +121,4 @@ function New-IFrame {
         }
     }
 }
-Export-ModuleMember -Function Get-PhaseRoute, Get-NextRoute, Get-PreviousPhase, Get-NextPhase, Get-BeforeHook, Get-AfterHook, New-IFrame
+Export-ModuleMember -Function Get-PhaseRoute, Get-PhaseTitle, Get-NextRoute, Get-PreviousPhase, Get-NextPhase, Get-BeforeHook, Get-AfterHook, New-IFrame
