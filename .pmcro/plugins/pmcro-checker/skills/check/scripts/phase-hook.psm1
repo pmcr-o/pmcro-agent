@@ -24,22 +24,49 @@ function Get-NextRoute {
     }
 }
 
+function Get-PreviousPhase {
+    param([Parameter(Mandatory = $true)][string]$Phase)
+    switch ($Phase) {
+        'orchestrate' { 'ROOT_OR_REFLECT' }
+        'plan' { 'ORCHESTRATE' }
+        'make' { 'PLAN' }
+        'check' { 'MAKE' }
+        'reflect' { 'CHECK' }
+        default { throw "unknown phase $Phase" }
+    }
+}
+
+function Get-NextPhase {
+    param([Parameter(Mandatory = $true)][string]$Phase)
+    switch ($Phase) {
+        'orchestrate' { 'PLAN' }
+        'plan' { 'MAKE' }
+        'make' { 'CHECK' }
+        'check' { 'REFLECT' }
+        'reflect' { 'ORCHESTRATE' }
+        default { throw "unknown phase $Phase" }
+    }
+}
+
 function Get-BeforeHook {
     param([Parameter(Mandatory = $true)][string]$Phase, [string]$Seed)
-    $line = "I AM the $(Get-PhaseRoute $Phase)"
-    if ($Seed) { $line = "$line $Seed" }
-    if ($Phase -eq 'reflect') { $line = "$line trigger $(Get-PhaseRoute orchestrate)" }
+    $route = Get-PhaseRoute $Phase
+    $from = Get-PreviousPhase $Phase
+    $nextPhase = Get-NextPhase $Phase
+    $line = "I AM the $route | ACCOUNTABILITY | PHASE=$($Phase.ToUpperInvariant()) | FROM=$from | NEXT=$nextPhase | AUTHORITY=.agents/grants.json | NO_JUMP=true"
+    if ($Seed) { $line = "$line | INTENT=$Seed" }
     return $line
 }
 
 function Get-AfterHook {
     param([Parameter(Mandatory = $true)][string]$Phase, [string]$Seed, [Parameter(Mandatory = $true)][string]$Next)
     if ($Phase -eq 'reflect') { $Next = Get-NextRoute reflect }
-    $line = if ($Seed) { "$Seed next $Next" } else { "next $Next" }
-    if ($Phase -eq 'reflect') { $line = "$line trigger $(Get-PhaseRoute orchestrate)" }
+    $route = Get-PhaseRoute $Phase
+    $nextPhase = Get-NextPhase $Phase
+    $line = "I AM the $route | HANDOFF | NEXT_PHASE=$nextPhase | NEXT_I=$Next | NO_JUMP=true"
+    if ($Seed) { $line = "$line | OBJECT=$Seed" }
     return $line
 }
-
 
 function New-IFrame {
     param(
@@ -50,11 +77,18 @@ function New-IFrame {
         [string[]]$ObjectRefs = @(),
         [string]$AddressedI,
         [string]$AuthorityCeilingRef = '.agents/grants.json',
-        [int]$MetaDepth = 0
+        [int]$MetaDepth = 0,
+        [string[]]$EvidenceRefs = @()
     )
+    $previous = Get-PreviousPhase $Phase
+    $nextPhase = Get-NextPhase $Phase
+    $nextI = Get-NextRoute $Phase
+    $evidence = @($EvidenceRefs)
+    if ($evidence.Count -eq 0) { $evidence = @($ObjectRefs) }
     return [ordered]@{
         schema = 'pmcro.i-frame/v1'
         am = (Get-PhaseRoute $Phase)
+        phase = $Phase.ToUpperInvariant()
         intentRef = $IntentRef
         intent = $Intent
         entityRef = (Get-PhaseRoute $Phase)
@@ -63,6 +97,16 @@ function New-IFrame {
         addressedI = $AddressedI
         authorityCeilingRef = $AuthorityCeilingRef
         metaDepth = $MetaDepth
+        accountability = [ordered]@{
+            schema = 'pmcro.accountability-frame/v1'
+            phase = $Phase.ToUpperInvariant()
+            allowedPrevious = $previous
+            allowedNext = $nextPhase
+            nextI = $nextI
+            evidenceRefs = @($evidence)
+            authorityCeilingRef = $AuthorityCeilingRef
+            noJump = $true
+        }
     }
 }
-Export-ModuleMember -Function Get-PhaseRoute, Get-NextRoute, Get-BeforeHook, Get-AfterHook, New-IFrame
+Export-ModuleMember -Function Get-PhaseRoute, Get-NextRoute, Get-PreviousPhase, Get-NextPhase, Get-BeforeHook, Get-AfterHook, New-IFrame

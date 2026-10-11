@@ -60,3 +60,33 @@ jobs:
         if: ${{ !env.ACT }}
       - shell: pwsh
         run: ./eng/lessons/marketplace.ps1
+
+  lesson-self:
+    name: '06 · bounded self'
+    needs: lesson-marketplace
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        if: ${{ !env.ACT }}
+      - shell: pwsh
+        run: ./eng/lessons/self.ps1
+
+  lesson-generate-action:
+    name: '07 · generate action'
+    needs: lesson-self
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        if: ${{ !env.ACT }}
+      - shell: pwsh
+        run: ./eng/lessons/generate-action.ps1
+
+  lesson-prove-action:
+    name: '08 · prove action boundary'
+    needs: lesson-generate-action
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        if: ${{ !env.ACT }}
+      - shell: pwsh
+        run: ./eng/lessons/prove-action.ps1

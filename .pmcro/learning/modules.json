@@ -2,12 +2,77 @@
   "schema": "pmcro.learning/v1",
   "runner": "act",
   "workflow": ".github/workflows/learn.yml",
-  "unlockRule": "a lesson unlocks only after its prerequisite lesson has a local PASS receipt or the corresponding GitHub Actions job is confirmed successful",
+  "unlockRule": "a lesson unlocks only after its prerequisite lesson has a local PASS receipt or the corresponding GitHub Actions job is confirmed successful; generated candidates never unlock routing authority merely by being created",
   "modules": [
-    {"id":"01-authority","job":"lesson-authority","title":"One source of authority","prerequisites":[],"teaches":".host -> .agents -> .pmcro and no clarification gate"},
-    {"id":"02-projections","job":"lesson-projections","title":"Host projections","prerequisites":["01-authority"],"teaches":"Claude, Grok, Cursor, and GitHub mirror .agents without widening authority"},
-    {"id":"03-queue","job":"lesson-queue","title":"Durable message handoff","prerequisites":["02-projections"],"teaches":"enqueue, claim, ACK, idempotent replay, local trail ownership"},
-    {"id":"04-lifecycle","job":"lesson-lifecycle","title":"Earn a checker PASS","prerequisites":["03-queue"],"teaches":"ORCHESTRATE -> PLAN -> MAKE -> CHECK -> REFLECT using the real scripts"},
-    {"id":"05-marketplace","job":"lesson-marketplace","title":"Extend the marketplace","prerequisites":["04-lifecycle"],"teaches":"reuse validated domain agents first; create missing capabilities only through skill-creator"}
+    {
+      "id": "01-authority",
+      "job": "lesson-authority",
+      "title": "One source of authority",
+      "prerequisites": [],
+      "teaches": ".host -> .agents -> .pmcro and no clarification gate"
+    },
+    {
+      "id": "02-projections",
+      "job": "lesson-projections",
+      "title": "Host projections",
+      "prerequisites": [
+        "01-authority"
+      ],
+      "teaches": "Claude, Grok, Cursor, and GitHub mirror .agents without widening authority"
+    },
+    {
+      "id": "03-queue",
+      "job": "lesson-queue",
+      "title": "Durable message handoff",
+      "prerequisites": [
+        "02-projections"
+      ],
+      "teaches": "enqueue, claim, ACK, idempotent replay, local trail ownership"
+    },
+    {
+      "id": "04-lifecycle",
+      "job": "lesson-lifecycle",
+      "title": "Earn a checker PASS",
+      "prerequisites": [
+        "03-queue"
+      ],
+      "teaches": "ORCHESTRATE -> PLAN -> MAKE -> CHECK -> REFLECT using the real scripts"
+    },
+    {
+      "id": "05-marketplace",
+      "job": "lesson-marketplace",
+      "title": "Extend the marketplace",
+      "prerequisites": [
+        "04-lifecycle"
+      ],
+      "teaches": "reuse validated domain agents first; create missing capabilities only through skill-creator"
+    },
+    {
+      "id": "06-self",
+      "job": "lesson-self",
+      "title": "Learn the bounded I",
+      "prerequisites": [
+        "05-marketplace"
+      ],
+      "teaches": "build a real I-frame; self-reference is operational identity, object lineage, addressed I, and an authority ceiling"
+    },
+    {
+      "id": "07-generate-action",
+      "job": "lesson-generate-action",
+      "title": "Generate an action",
+      "prerequisites": [
+        "06-self"
+      ],
+      "teaches": "use the registered skill-creator to generate a candidate action package with the full required shape"
+    },
+    {
+      "id": "08-prove-action",
+      "job": "lesson-prove-action",
+      "title": "Prove before promotion",
+      "prerequisites": [
+        "07-generate-action"
+      ],
+      "teaches": "interact with the generated candidate and prove ORCHESTRATE keeps the route closed until independent promotion"
+    }
   ]
 }

@@ -1,11 +1,18 @@
 import argparse,json,re,sys
 from pathlib import Path
-REQ=['schema','rootIntentRef','ownerPhase','invokedBy','rawIntent','workingIntent','requestedOutcome','validatedClaims','unresolvedFragments','explicitConstraints','assumptions','changes','authorityGranted','executionPerformed']
+REQ=['schema','I','rootIntentRef','ownerPhase','invokedBy','rawIntent','workingIntent','requestedOutcome','validatedClaims','unresolvedFragments','explicitConstraints','assumptions','changes','authorityGranted','executionPerformed']
 def validate(x):
     for k in REQ:
         if k not in x: raise ValueError('missing '+k)
     if x['schema']!='pmcro.intent-refinement/v1': raise ValueError('schema')
     if x['ownerPhase']!='ORCHESTRATE' or x['invokedBy']!='orchestrator': raise ValueError('intent refinement must be owned/invoked by ORCHESTRATE')
+    I=x['I']
+    for k in ['schema','iRef','entityRef','role','behavior','intentRef','lineageRootRef','parentIRef','objectIRefs','addressedIRef','authorityCeilingRef','metaDepth','consciousnessClaim']:
+        if k not in I: raise ValueError('missing I.'+k)
+    if I['schema']!='pmcro.i-context/v1' or I['role']!='ORCHESTRATE' or I['behavior']!='refine-intent': raise ValueError('invalid intent I context')
+    if I['intentRef']!=x['rootIntentRef'] or I['lineageRootRef']!=x['rootIntentRef']: raise ValueError('intent I lineage mismatch')
+    if I['addressedIRef']!='reasoning-agent': raise ValueError('intent I addressedIRef')
+    if I['consciousnessClaim'] is not False: raise ValueError('intent I consciousnessClaim')
     raw=x['rawIntent']
     if not isinstance(raw,str) or not raw: raise ValueError('rawIntent')
     if not isinstance(x['workingIntent'],str) or not x['workingIntent']: raise ValueError('workingIntent')
@@ -29,7 +36,7 @@ def validate(x):
 def conservative_refine(raw,root):
     working=re.sub(r'\s+',' ',raw).strip()
     changes=[] if working==raw else ['Collapsed whitespace only; no semantic inference performed by deterministic wrapper.']
-    return {'schema':'pmcro.intent-refinement/v1','rootIntentRef':root,'ownerPhase':'ORCHESTRATE','invokedBy':'orchestrator','rawIntent':raw,'workingIntent':working,'requestedOutcome':working,'validatedClaims':[{'claimId':'claim-001','sourceStart':0,'sourceEnd':len(raw),'sourceExcerpt':raw,'interpretation':working,'status':'CONFIRMED'}],'unresolvedFragments':['Semantic decomposition remains unresolved until an agent/model emits smaller exact-source-grounded CONFIRMED claims.'],'explicitConstraints':[],'assumptions':[],'changes':changes,'rationaleSummary':'Conservative ingress refinement preserves the entire source as one exact CONFIRMED claim; deterministic cleanup does not pretend to be semantic understanding.','authorityGranted':False,'executionPerformed':False}
+    return {'schema':'pmcro.intent-refinement/v1','I':{'schema':'pmcro.i-context/v1','iRef':'i:'+root+':orchestrate','entityRef':'pmcro-agent','role':'ORCHESTRATE','behavior':'refine-intent','intentRef':root,'lineageRootRef':root,'parentIRef':'','objectIRefs':[],'addressedIRef':'reasoning-agent','authorityCeilingRef':'authority:inherited','metaDepth':0,'consciousnessClaim':False},'rootIntentRef':root,'ownerPhase':'ORCHESTRATE','invokedBy':'orchestrator','rawIntent':raw,'workingIntent':working,'requestedOutcome':working,'validatedClaims':[{'claimId':'claim-001','sourceStart':0,'sourceEnd':len(raw),'sourceExcerpt':raw,'interpretation':working,'status':'CONFIRMED'}],'unresolvedFragments':['Semantic decomposition remains unresolved until an agent/model emits smaller exact-source-grounded CONFIRMED claims.'],'explicitConstraints':[],'assumptions':[],'changes':changes,'rationaleSummary':'Conservative ingress refinement preserves the entire source as one exact CONFIRMED claim; deterministic cleanup does not pretend to be semantic understanding.','authorityGranted':False,'executionPerformed':False}
 p=argparse.ArgumentParser();p.add_argument('operation',choices=['validate','refine']);p.add_argument('--input');p.add_argument('--raw-file');p.add_argument('--root-intent-ref');p.add_argument('--output');a=p.parse_args()
 try:
     if a.operation=='validate':
