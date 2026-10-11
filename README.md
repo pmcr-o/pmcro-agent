@@ -15,6 +15,7 @@ A reusable PMCR-O repository template and executable learning environment for bo
 - Open `docs/index.html` or the GitHub Pages site.
 - Grok: `docs/tutorials/grok.md`
 - Action-powered learning: `./eng/learn.ps1 -Action list` (local workflow execution delegates to `github-agent/local-actions`)
+- Actions accountability: `docs/ACTIONS-ACCOUNTABILITY.md`
 - Architecture: `docs/ARCHITECTURE.md`
 - Thought Transfer / linguistic strange loop: `docs/THOUGHT-TRANSFER.md`
 - Behavioral Intent Programming: `docs/BEHAVIORAL-INTENT-PROGRAMMING.md`
