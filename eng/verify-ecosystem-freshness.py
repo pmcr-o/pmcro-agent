@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import sys
 import urllib.error
 import urllib.request
 from dataclasses import dataclass
@@ -42,14 +41,20 @@ def count_skills(catalog: dict[str, Any], source: str) -> int:
     skills = catalog.get("skills")
     if not isinstance(skills, list):
         raise ValueError(f"catalog has no skills array: {source}")
-    ids: list[str] = []
+    keys: list[tuple[str, str]] = []
     for index, row in enumerate(skills):
-        if not isinstance(row, dict) or not isinstance(row.get("id"), str):
+        if not isinstance(row, dict):
+            raise ValueError(f"catalog skill #{index} is not an object: {source}")
+        plugin = row.get("plugin")
+        skill_id = row.get("id")
+        if not isinstance(plugin, str) or not plugin:
+            raise ValueError(f"catalog skill #{index} has no string plugin: {source}")
+        if not isinstance(skill_id, str) or not skill_id:
             raise ValueError(f"catalog skill #{index} has no string id: {source}")
-        ids.append(row["id"])
-    if len(ids) != len(set(ids)):
-        raise ValueError(f"catalog contains duplicate skill ids: {source}")
-    return len(ids)
+        keys.append((plugin, skill_id))
+    if len(keys) != len(set(keys)):
+        raise ValueError(f"catalog contains duplicate plugin/id skill keys: {source}")
+    return len(keys)
 
 
 def fetch_json(url: str, timeout: float) -> dict[str, Any]:
@@ -82,22 +87,25 @@ def observe_agent(
     agent_id: str,
     declared: int,
 ) -> Observation:
+    source = agent_id
     try:
         if agent_id == "pmcro-agent":
             path = repo_root / ".pmcro" / "control" / "catalog.json"
-            observed = count_skills(read_json(path), str(path))
-            return Observation(agent_id, declared, observed, str(path))
+            source = str(path)
+            observed = count_skills(read_json(path), source)
+            return Observation(agent_id, declared, observed, source)
 
         if offline_root is not None:
             path = offline_root / agent_id / ".agents" / "catalog.json"
-            observed = count_skills(read_json(path), str(path))
-            return Observation(agent_id, declared, observed, str(path))
+            source = str(path)
+            observed = count_skills(read_json(path), source)
+            return Observation(agent_id, declared, observed, source)
 
-        url = public_catalog_url(owner, agent_id, ref)
-        observed = count_skills(fetch_json(url, timeout), url)
-        return Observation(agent_id, declared, observed, url)
+        source = public_catalog_url(owner, agent_id, ref)
+        observed = count_skills(fetch_json(source, timeout), source)
+        return Observation(agent_id, declared, observed, source)
     except (OSError, ValueError, json.JSONDecodeError, urllib.error.URLError) as exc:
-        return Observation(agent_id, declared, None, locals().get("url", locals().get("path", agent_id)).__str__(), str(exc))
+        return Observation(agent_id, declared, None, source, str(exc))
 
 
 def parse_args() -> argparse.Namespace:
