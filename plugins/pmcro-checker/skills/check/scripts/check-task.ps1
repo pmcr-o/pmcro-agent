@@ -24,6 +24,17 @@ foreach ($event in $events) {
     if (-not $event.i.addressedI) { $fail += "frame $($event.phase) has no addressed I" }
     if (@($event.i.objectRefs).Count -lt 1 -or @($event.i.objectRefs | Where-Object { -not $_ }).Count -gt 0) { $fail += "frame $($event.phase) has invalid I dependency object refs" }
     if (-not $event.i.authorityCeilingRef) { $fail += "frame $($event.phase) has no I authority ceiling" }
+    $account=$event.i.accountability
+    $accountPhase=if($event.phase -eq 'intent-refinement'){'ORCHESTRATE'}else{[string]$event.phase.ToUpperInvariant()}
+    if (-not $account) { $fail += "frame $($event.phase) has no accountability frame" }
+    else {
+        if ($account.schema -ne 'pmcro.accountability-frame/v1') { $fail += "frame $($event.phase) accountability schema" }
+        if ($account.phase -ne $accountPhase -or $event.i.phase -ne $accountPhase) { $fail += "frame $($event.phase) accountability phase mismatch" }
+        if ($account.noJump -ne $true) { $fail += "frame $($event.phase) accountability permits phase jump" }
+        if (-not $account.allowedPrevious -or -not $account.allowedNext -or -not $account.nextI) { $fail += "frame $($event.phase) accountability transition incomplete" }
+        if ($account.authorityCeilingRef -ne $event.i.authorityCeilingRef) { $fail += "frame $($event.phase) accountability authority mismatch" }
+        if (@($account.evidenceRefs).Count -lt 1) { $fail += "frame $($event.phase) accountability evidence missing" }
+    }
     foreach ($generated in @([string]$event.i.behavior,[string]$event.i.addressedI,[string]$event.i.am)) {
         if ($generated -match '(?i)\b(you|your|we|our)\b') { $fail += "frame $($event.phase) generated non-I pronoun" }
     }

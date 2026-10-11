@@ -12,7 +12,7 @@
       "id": "csuite-agent",
       "status": "canonical",
       "role": "domain-meta-orchestrator",
-      "skills": 14
+      "skills": 15
     },
     {
       "id": "agent-skills-template",

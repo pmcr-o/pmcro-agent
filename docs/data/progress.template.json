@@ -2,10 +2,53 @@
   "schema": "pmcro.learning.progress/v1",
   "updatedAt": null,
   "modules": [
-    {"id":"01-authority","title":"One source of authority","state":"AVAILABLE"},
-    {"id":"02-projections","title":"Host projections","state":"LOCKED"},
-    {"id":"03-queue","title":"Durable message handoff","state":"LOCKED"},
-    {"id":"04-lifecycle","title":"Earn a checker PASS","state":"LOCKED"},
-    {"id":"05-marketplace","title":"Extend the marketplace","state":"LOCKED"}
+    {
+      "id": "01-authority",
+      "title": "One source of authority",
+      "state": "AVAILABLE",
+      "teaches": ".host -> .agents -> .pmcro and no clarification gate"
+    },
+    {
+      "id": "02-projections",
+      "title": "Host projections",
+      "state": "LOCKED",
+      "teaches": "Claude, Grok, Cursor, and GitHub mirror .agents without widening authority"
+    },
+    {
+      "id": "03-queue",
+      "title": "Durable message handoff",
+      "state": "LOCKED",
+      "teaches": "enqueue, claim, ACK, idempotent replay, local trail ownership"
+    },
+    {
+      "id": "04-lifecycle",
+      "title": "Earn a checker PASS",
+      "state": "LOCKED",
+      "teaches": "ORCHESTRATE -> PLAN -> MAKE -> CHECK -> REFLECT using the real scripts"
+    },
+    {
+      "id": "05-marketplace",
+      "title": "Extend the marketplace",
+      "state": "LOCKED",
+      "teaches": "reuse validated domain agents first; create missing capabilities only through skill-creator"
+    },
+    {
+      "id": "06-self",
+      "title": "Learn the bounded I",
+      "state": "LOCKED",
+      "teaches": "build a real I-frame; self-reference is operational identity, object lineage, addressed I, and an authority ceiling"
+    },
+    {
+      "id": "07-generate-action",
+      "title": "Generate an action",
+      "state": "LOCKED",
+      "teaches": "use the registered skill-creator to generate a candidate action package with the full required shape"
+    },
+    {
+      "id": "08-prove-action",
+      "title": "Prove before promotion",
+      "state": "LOCKED",
+      "teaches": "interact with the generated candidate and prove ORCHESTRATE keeps the route closed until independent promotion"
+    }
   ]
 }

@@ -51,8 +51,22 @@ $m=@($config.modules|Where-Object {$_.id -eq $Module})
 if($m.Count -ne 1){throw "unknown module: $Module"};$m=$m[0]
 if(-not(Available $m)){throw "module locked; pass prerequisites first: $(@($m.prerequisites)-join ', ')"}
 $github=Resolve-GithubAgent
-$evidence=& $github.Script -Operation run -Workspace $root -Workflow '.github/workflows/learn.yml' -Job $m.job -Event workflow_dispatch -Apply
+$executionRoot=Join-Path ([IO.Path]::GetTempPath()) ('pmcro-learning-'+[guid]::NewGuid().ToString('N'))
+New-Item -ItemType Directory -Force -Path $executionRoot | Out-Null
+try {
+  Get-ChildItem -LiteralPath $root -Force | ForEach-Object { Copy-Item -LiteralPath $_.FullName -Destination $executionRoot -Recurse -Force }
+  $git=Get-Command git -ErrorAction Stop
+  & $git.Source -C $executionRoot init -q
+  & $git.Source -C $executionRoot config user.email 'pmcro-learning@local.invalid'
+  & $git.Source -C $executionRoot config user.name 'PMCR-O Learning I'
+  & $git.Source -C $executionRoot add -A
+  & $git.Source -C $executionRoot commit -q -m 'PMCR-O learning execution snapshot'
+  if($LASTEXITCODE -ne 0){throw 'ephemeral learning Git snapshot commit failed'}
+  $evidence=& $github.Script -Operation run -Workspace $executionRoot -Workflow '.github/workflows/learn.yml' -Job $m.job -Event workflow_dispatch -Apply
+} finally {
+  if(Test-Path -LiteralPath $executionRoot){Remove-Item -LiteralPath $executionRoot -Recurse -Force -ErrorAction SilentlyContinue}
+}
 $head='UNPUBLISHED-BUILD'; try{$top=(git -C $root rev-parse --show-toplevel 2>$null).Trim();if($top -and ([IO.Path]::GetFullPath($top).TrimEnd([IO.Path]::DirectorySeparatorChar) -eq [IO.Path]::GetFullPath($root).TrimEnd([IO.Path]::DirectorySeparatorChar))){$head=(git -C $root rev-parse HEAD).Trim()}}catch{};$workflowHash=(Get-FileHash -Algorithm SHA256 -LiteralPath (Join-Path $root '.github\workflows\learn.yml')).Hash.ToLowerInvariant()
-$receipt=[ordered]@{schema='pmcro.learning.receipt/v1';module=$m.id;job=$m.job;verdict='PASS';runner='@github-agent /github:local-actions';githubAgent=$github.Root;gitCommit=$head;workflowSha256=$workflowHash;completedAt=[DateTimeOffset]::UtcNow.ToString('o');evidence=@($evidence)}
+$receipt=[ordered]@{schema='pmcro.learning.receipt/v1';module=$m.id;job=$m.job;verdict='PASS';runner='@github-agent /github:local-actions';executionIsolation='ephemeral-git-snapshot';githubAgent=$github.Root;gitCommit=$head;workflowSha256=$workflowHash;completedAt=[DateTimeOffset]::UtcNow.ToString('o');evidence=@($evidence)}
 [IO.File]::WriteAllText((Receipt $m.id),($receipt|ConvertTo-Json -Depth 12)+[Environment]::NewLine,[Text.UTF8Encoding]::new($false))
 Write-WebProgress;Write-Output "UNLOCKED $($m.id)"

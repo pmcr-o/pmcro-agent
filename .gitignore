@@ -8,6 +8,8 @@
 .pmcro/queue/tmp/*.json
 __pycache__/
 *.pyc
+.pmcro/runtime/**
+!.pmcro/runtime/README.md
 .pmcro/learning/receipts/*.json
 docs/data/progress.local.json
 .pmcro/trails/learn-*.jsonl

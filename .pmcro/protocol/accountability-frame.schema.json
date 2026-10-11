@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pmcro.dev/schemas/accountability-frame-v1.json",
+  "title": "PMCR-O lifecycle accountability frame",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "phase",
+    "allowedPrevious",
+    "allowedNext",
+    "nextI",
+    "evidenceRefs",
+    "authorityCeilingRef",
+    "noJump"
+  ],
+  "properties": {
+    "schema": {
+      "const": "pmcro.accountability-frame/v1"
+    },
+    "phase": {
+      "enum": [
+        "ORCHESTRATE",
+        "PLAN",
+        "MAKE",
+        "CHECK",
+        "REFLECT"
+      ]
+    },
+    "allowedPrevious": {
+      "enum": [
+        "ROOT_OR_REFLECT",
+        "ORCHESTRATE",
+        "PLAN",
+        "MAKE",
+        "CHECK"
+      ]
+    },
+    "allowedNext": {
+      "enum": [
+        "ORCHESTRATE",
+        "PLAN",
+        "MAKE",
+        "CHECK",
+        "REFLECT"
+      ]
+    },
+    "nextI": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidenceRefs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "authorityCeilingRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "noJump": {
+      "const": true
+    }
+  }
+}
