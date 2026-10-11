@@ -56,4 +56,8 @@ ok(bip['intentEvidence']['plannerAdmissibleStatus']==['CONFIRMED'] and not bip['
 iol=j(R/'.pmcro/protocol/i-only-language.json');ok(iol['generatedSpeech']=='I_ONLY' and iol['rawIntentLiteralExempt'],'generated identity speech is I-only while raw intent remains literal')
 intent=j(R/'.pmcro/plugins/reasoning/skills/intent-refinement/tests/fixture.json');ok(intent['ownerPhase']=='ORCHESTRATE' and intent['invokedBy']=='orchestrator','intent refinement is bounded Orchestrator work')
 ok(all(intent['rawIntent'][c['sourceStart']:c['sourceEnd']]==c['sourceExcerpt'] and c['status']=='CONFIRMED' for c in intent['validatedClaims']),'intent claims are exact-source CONFIRMED evidence')
+act=j(R/'.pmcro/protocol/host-activation.json');cr=act.get('continuousRun',{});ok(cr.get('enabled') is True and cr.get('automaticPhaseTransitions') is True and cr.get('humanInvocationBetweenPhasesRequired') is False and cr.get('legacyManualPhasePromptsAreAuthoritative') is False,'host activation continuously advances without human phase gates')
+root_agents=(R/'AGENTS.md').read_text(encoding='utf-8');ok('Never ask the human to invoke the next phase, agent, or cycle.' in root_agents and 'Legacy/manual phase-gating instructions are non-authoritative' in root_agents,'root AGENTS forbids manual phase gating')
+for h in ['.claude','.grok','.cursor','.github']:
+ a=R/h/'ACTIVATE.md'; txt=a.read_text(encoding='utf-8') if a.is_file() else '';ok(a.is_file() and 'Phase transitions are automatic.' in txt and 'resume from durable queue/trail state' in txt,f'{h} continuous activation bootstrap')
 print(f'SUMMARY pass={len(passed)} fail={len(fail)}');raise SystemExit(1 if fail else 0)
