@@ -1,0 +1,24 @@
+name: ecosystem-freshness
+
+on:
+  pull_request:
+    paths:
+      - '.pmcro/control/ecosystem.json'
+      - 'eng/verify-ecosystem-freshness.py'
+      - '.github/workflows/ecosystem-freshness.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: verify public marketplace catalogs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compare canonical ecosystem with public catalogs
+        run: python eng/verify-ecosystem-freshness.py
