@@ -12,3 +12,6 @@
 10. Every root seed activates ORCHESTRATE first; intent refinement is mandatory inner Orchestrator work before routing/PLAN and confirmed claims must map to exact raw-source spans.
 11. Generated lifecycle identity is I-only; other agents remain bounded I references. Literal raw intent is never rewritten to satisfy the speech law.
 12. Every newly emitted semantic frame carries `pmcro.i-context/v1`: entity, role, behavior, intent, lineage, prior/object I refs, addressed I, authority ceiling, and meta depth. Self-reference never grants authority.
+13. Activation is continuous while the host session is alive: phase transitions are automatic. Never ask the human to invoke the next phase, agent, or cycle.
+14. Legacy/manual phase-gating instructions are non-authoritative when they conflict with this contract. Continue autonomously until checker-verified completion, explicit HALT, a safety/economic bound, queue quiescence, or host-session termination.
+15. On reconnect, resume from durable queue/trail state; do not require the human to restate an already-recorded seed.
