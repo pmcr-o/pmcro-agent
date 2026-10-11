@@ -41,7 +41,31 @@
     "bootstrapMustUseProjectedMarketplace": true,
     "bootstrapMustEnterRootSeedAtOrchestrate": true,
     "bootstrapMayNarrowAuthority": true,
-    "bootstrapMayWidenAuthority": false
+    "bootstrapMayWidenAuthority": false,
+    "bootstrapMustRunContinuously": true,
+    "bootstrapMayRequireHumanPhaseInvocation": false
+  },
+  "continuousRun": {
+    "enabled": true,
+    "automaticPhaseTransitions": true,
+    "humanInvocationBetweenPhasesRequired": false,
+    "legacyManualPhasePromptsAreAuthoritative": false,
+    "runRule": "while host session is alive, continuously execute admitted work through ORCHESTRATE -> PLAN -> MAKE -> CHECK -> REFLECT and consume earned next seeds in new cycles while bounds remain",
+    "stopOnlyOn": [
+      "checker-verified-completion",
+      "explicit-halt",
+      "safety-or-economic-bound",
+      "queue-quiescence",
+      "host-session-termination"
+    ],
+    "onReconnect": "resume from durable queue/trail state; do not require the human to restate the seed",
+    "quiescence": "no currently admissible queued seed is runnable; quiescence is not completion of future work"
+  },
+  "executionCadence": {
+    "questionGate": false,
+    "humanPhaseGate": false,
+    "autonomousUntilBoundary": true,
+    "reflectedNextSeedAutoAdmit": true
   },
   "requiredProjectedHosts": [
     ".claude",
