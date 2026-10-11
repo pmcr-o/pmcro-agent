@@ -6,151 +6,176 @@
       "id": "pmcro-agent",
       "status": "canonical",
       "role": "global-orchestrator",
-      "skills": 17
+      "skills": 17,
+      "repository": "https://github.com/pmcr-o/pmcro-agent"
     },
     {
       "id": "csuite-agent",
       "status": "canonical",
       "role": "domain-meta-orchestrator",
-      "skills": 15
+      "skills": 15,
+      "repository": "https://github.com/pmcr-o/csuite-agent"
     },
     {
       "id": "agent-skills-template",
       "status": "canonical",
       "role": "template-orchestrator",
-      "skills": 6
+      "skills": 6,
+      "repository": "https://github.com/pmcr-o/agent-skills-template"
     },
     {
       "id": "dotagents-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 5
+      "skills": 6,
+      "repository": "https://github.com/pmcr-o/dotagents-agent"
     },
     {
       "id": "dotnet-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 113
+      "skills": 113,
+      "repository": "https://github.com/pmcr-o/dotnet-agent"
     },
     {
       "id": "github-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 9
+      "skills": 10,
+      "repository": "https://github.com/pmcr-o/github-agent"
     },
     {
       "id": "docker-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 2
+      "skills": 2,
+      "repository": "https://github.com/pmcr-o/docker-agent"
     },
     {
       "id": "powershell-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 1
+      "skills": 1,
+      "repository": "https://github.com/pmcr-o/powershell-agent"
     },
     {
       "id": "filesystem-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 2
+      "skills": 2,
+      "repository": "https://github.com/pmcr-o/filesystem-agent"
     },
     {
       "id": "governance-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 1
+      "skills": 1,
+      "repository": "https://github.com/pmcr-o/governance-agent"
     },
     {
       "id": "desktop-commander-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 1
+      "skills": 1,
+      "repository": "https://github.com/pmcr-o/desktop-commander-agent"
     },
     {
       "id": "skill-creator-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 4
+      "skills": 4,
+      "repository": "https://github.com/pmcr-o/skill-creator-agent"
     },
     {
       "id": "reasoning-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 10
+      "skills": 10,
+      "repository": "https://github.com/pmcr-o/reasoning-agent"
     },
     {
       "id": "maf-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 3
+      "skills": 3,
+      "repository": "https://github.com/pmcr-o/maf-agent"
     },
     {
       "id": "social-media-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 3
+      "skills": 3,
+      "repository": "https://github.com/pmcr-o/social-media-agent"
     },
     {
       "id": "git-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 2
+      "skills": 2,
+      "repository": "https://github.com/pmcr-o/git-agent"
     },
     {
       "id": "python-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 2
+      "skills": 2,
+      "repository": "https://github.com/pmcr-o/python-agent"
     },
     {
       "id": "aspire-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 3
+      "skills": 3,
+      "repository": "https://github.com/pmcr-o/aspire-agent"
     },
     {
       "id": "computer-use-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 2
+      "skills": 2,
+      "repository": "https://github.com/pmcr-o/computer-use-agent"
     },
     {
       "id": "model-gateway-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 2
+      "skills": 2,
+      "repository": "https://github.com/pmcr-o/model-gateway-agent"
     },
     {
       "id": "eval-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 3
+      "skills": 3,
+      "repository": "https://github.com/pmcr-o/eval-agent"
     },
     {
       "id": "federation-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 3
+      "skills": 3,
+      "repository": "https://github.com/pmcr-o/federation-agent"
     },
     {
       "id": "confidentiality-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 3
+      "skills": 3,
+      "repository": "https://github.com/pmcr-o/confidentiality-agent"
     },
     {
       "id": "resource-registry-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 4
+      "skills": 4,
+      "repository": "https://github.com/pmcr-o/resource-registry-agent"
     },
     {
       "id": "economics-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 4
+      "skills": 4,
+      "repository": "https://github.com/pmcr-o/economics-agent"
     }
   ],
   "rule": "pmcro-agent is global; each domain agent is an independently addressable orchestrator; skills/scripts are executable capabilities."
