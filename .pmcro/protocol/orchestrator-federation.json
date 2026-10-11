@@ -1,0 +1,29 @@
+{
+  "schema": "pmcro.orchestrator-federation/v1",
+  "agent": "federation-agent",
+  "globalAuthority": "pmcro-agent",
+  "roles": {
+    "competitionOwner": "federation-agent",
+    "admissionPolicy": "governance-agent",
+    "scoring": "eval-agent",
+    "referee": "independent checker",
+    "competitors": "registered orchestrator agents"
+  },
+  "fairness": [
+    "same seed",
+    "same shared constraints",
+    "explicit budget",
+    "contestants cannot referee their own round"
+  ],
+  "budget": {
+    "mayIncreaseCandidatesOrReplays": true,
+    "mayWidenAuthority": false,
+    "mustBeExplicit": true
+  },
+  "winner": {
+    "summaryAllowed": true,
+    "privateInternalReasoningRequired": false,
+    "reuse": "checked winning strategy may become a procedure candidate or next-round seed"
+  },
+  "serviceModel": "A future orchestrator service may sell/allocate more bounded competition budget, but budget never purchases additional authority."
+}

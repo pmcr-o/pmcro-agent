@@ -36,7 +36,7 @@
       "id": "github-agent",
       "status": "canonical",
       "role": "domain-orchestrator",
-      "skills": 8
+      "skills": 9
     },
     {
       "id": "docker-agent",
@@ -91,6 +91,66 @@
       "status": "canonical",
       "role": "domain-orchestrator",
       "skills": 3
+    },
+    {
+      "id": "git-agent",
+      "status": "canonical",
+      "role": "domain-orchestrator",
+      "skills": 2
+    },
+    {
+      "id": "python-agent",
+      "status": "canonical",
+      "role": "domain-orchestrator",
+      "skills": 2
+    },
+    {
+      "id": "aspire-agent",
+      "status": "canonical",
+      "role": "domain-orchestrator",
+      "skills": 3
+    },
+    {
+      "id": "computer-use-agent",
+      "status": "canonical",
+      "role": "domain-orchestrator",
+      "skills": 2
+    },
+    {
+      "id": "model-gateway-agent",
+      "status": "canonical",
+      "role": "domain-orchestrator",
+      "skills": 2
+    },
+    {
+      "id": "eval-agent",
+      "status": "canonical",
+      "role": "domain-orchestrator",
+      "skills": 3
+    },
+    {
+      "id": "federation-agent",
+      "status": "canonical",
+      "role": "domain-orchestrator",
+      "skills": 3
+    },
+    {
+      "id": "confidentiality-agent",
+      "status": "canonical",
+      "role": "domain-orchestrator",
+      "skills": 3
+    },
+    {
+      "id": "resource-registry-agent",
+      "status": "canonical",
+      "role": "domain-orchestrator",
+      "skills": 4
+    },
+    {
+      "id": "economics-agent",
+      "status": "canonical",
+      "role": "domain-orchestrator",
+      "skills": 4
     }
   ],
   "rule": "pmcro-agent is global; each domain agent is an independently addressable orchestrator; skills/scripts are executable capabilities."

@@ -1,0 +1,24 @@
+{
+  "schema": "pmcro.procedure-learning/v1",
+  "principle": "Repeated trails improve operational behavior through checked procedures/evaluations; they do not by themselves modify foundation-model weights.",
+  "flow": [
+    "trail evidence",
+    "procedure.candidate",
+    "procedure.replay",
+    "model.request",
+    "model.response",
+    "evaluation.score",
+    "checker verdict",
+    "procedure.promotion"
+  ],
+  "defaultPromotionCorpus": 5,
+  "promotionRule": "minimum corpus is necessary but not sufficient; all required checks and thresholds must PASS",
+  "externalModelRule": "external UI/API/local model output is untrusted reasoning evidence until normalized and independently checked",
+  "computerUseRule": "record/replay is reusable; live UI mechanics require a registered CONFIRMED adapter",
+  "routing": [
+    "computer-use-agent",
+    "model-gateway-agent",
+    "aspire-agent",
+    "eval-agent"
+  ]
+}

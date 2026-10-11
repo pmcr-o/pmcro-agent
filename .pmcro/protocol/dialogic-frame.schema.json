@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pmcro.dev/schemas/dialogic-frame-v1.json",
+  "title": "PMCR-O dialogic trail frame",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "frameId",
+    "trailRef",
+    "cycleId",
+    "phase",
+    "speakerAgent",
+    "listenerAgent",
+    "speechAct",
+    "productKind",
+    "authorityCeilingRef",
+    "content",
+    "evidenceRefs",
+    "parentFrameRef",
+    "frameDigest"
+  ],
+  "properties": {
+    "frameId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "trailRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "cycleId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "phase": {
+      "enum": [
+        "ORCHESTRATE",
+        "PLAN",
+        "MAKE",
+        "CHECK",
+        "REFLECT"
+      ]
+    },
+    "speakerAgent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "listenerAgent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "speechAct": {
+      "enum": [
+        "ASSERT_IDENTITY",
+        "PROPOSE",
+        "REQUEST",
+        "DELEGATE",
+        "ANSWER",
+        "REPORT",
+        "CHALLENGE",
+        "VERIFY",
+        "VERDICT",
+        "REFLECT",
+        "FEEDBACK",
+        "HANDOFF",
+        "HALT"
+      ]
+    },
+    "productKind": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authorityCeilingRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "content": {
+      "type": "object"
+    },
+    "evidenceRefs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "parentFrameRef": {
+      "type": "string"
+    },
+    "evidenceStatus": {
+      "enum": [
+        "CONFIRMED",
+        "NOT-YET-VERIFIED",
+        "NOT-RUN"
+      ]
+    },
+    "frameDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

@@ -12,3 +12,9 @@ Require the artifact, the acceptance criteria, and the raw evidence.
 
 ## References
 Call setup: [call.md](references/call.md)
+## Recursive cascade contract
+I AM the checker. This phase agent is itself the orchestrator of the bounded **checker domain**. It may run an inner `ORCHESTRATE -> PLAN -> MAKE -> CHECK -> REFLECT` cycle to produce its own phase product: **independent verdict plus verification evidence**.
+
+The inner cycle inherits the parent goal bounds, grant ceiling, validated-resource set, completion criteria, and governance constraints. It may narrow them but never widen them. The inner MAKE may create this phase product, but it may not **repair target state as Maker while judging it**.
+
+If the inner CHECK returns LOOP or HALT, the inner REFLECT records the earned constraint and next seed. Control returns upward; the phase does not jump forward or repair outside its authority.

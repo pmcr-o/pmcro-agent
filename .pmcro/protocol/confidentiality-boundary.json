@@ -1,0 +1,15 @@
+{
+  "schema": "pmcro.confidentiality-boundary/v1",
+  "owner": "confidentiality-agent",
+  "rules": [
+    "self-reference and private intent do not imply consent to disclose or learn from content",
+    "raw trails are operational provenance and are not directly training-eligible",
+    "learning requires a separately created sanitized learning artifact",
+    "confidential learning promotion requires explicit consent plus policy and grant references",
+    "restricted learning promotion is denied until a separate declassification capability exists",
+    "minimum disclosure emits only explicitly allowed fields and never widens grants"
+  ],
+  "trainingDefault": "DENY",
+  "rawTrailTraining": false,
+  "sanitizedLearningArtifactRequired": true
+}

@@ -1,0 +1,86 @@
+{
+  "schema": "pmcro.phase-authority/v1",
+  "sequence": [
+    "ORCHESTRATE",
+    "PLAN",
+    "MAKE",
+    "CHECK",
+    "REFLECT"
+  ],
+  "phases": {
+    "ORCHESTRATE": {
+      "agent": "orchestrator",
+      "may": [
+        "admit-or-deny-intent",
+        "select-validated-domains",
+        "select-validated-resources",
+        "set-bounds",
+        "delegate"
+      ],
+      "mayNot": [
+        "execute-target-mutation",
+        "self-approve-result"
+      ],
+      "plugin": "pmcro-orchestrator"
+    },
+    "PLAN": {
+      "agent": "planner",
+      "may": [
+        "read-admissible-resources",
+        "write-plan-artifact",
+        "drop-nonessential-steps",
+        "name-required-grants"
+      ],
+      "mayNot": [
+        "execute-target-mutation",
+        "invoke-unregistered-capability",
+        "approve-maker-output"
+      ],
+      "plugin": "pmcro-planner"
+    },
+    "MAKE": {
+      "agent": "maker",
+      "may": [
+        "execute-accepted-plan",
+        "invoke-registered-capability",
+        "write-execution-evidence"
+      ],
+      "mayNot": [
+        "change-plan-scope-silently",
+        "self-approve-result",
+        "issue-checker-verdict"
+      ],
+      "plugin": "pmcro-maker"
+    },
+    "CHECK": {
+      "agent": "checker",
+      "may": [
+        "independently-verify-evidence",
+        "write-verdict-artifact",
+        "return-PASS-LOOP-HALT"
+      ],
+      "mayNot": [
+        "perform-maker-mutation",
+        "rewrite-source-evidence-to-fit-verdict"
+      ],
+      "plugin": "pmcro-checker"
+    },
+    "REFLECT": {
+      "agent": "reflector",
+      "may": [
+        "write-earned-constraint",
+        "write-one-next-seed",
+        "link-prior-evidence"
+      ],
+      "mayNot": [
+        "execute-next-seed",
+        "mutate-prior-trail",
+        "grant-new-authority"
+      ],
+      "plugin": "pmcro-reflector"
+    }
+  },
+  "plannerResourceRule": "PLAN may rely only on resources returned admissible by resource-registry-agent or explicitly validated equivalent evidence.",
+  "phaseArtifactRule": "Each phase may write only artifacts that are part of that phase product; writing a plan artifact is not target-system execution.",
+  "phaseTransitionRule": "A phase may hand off only its typed artifact/evidence to the next phase; it does not inherit the next phase authority."
+}

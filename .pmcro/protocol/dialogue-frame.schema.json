@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pmcro.dev/schemas/dialogue-frame-v1.json",
+  "title": "PMCR-O dialogue frame",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "apiVersion",
+    "frameId",
+    "trailId",
+    "cycleId",
+    "sourceAgent",
+    "targetAgent",
+    "speechAct",
+    "utterance",
+    "sourceIntentRef",
+    "authorityCeilingRef",
+    "evidenceStatus",
+    "subjectIdentityRef",
+    "objectFrameRefs",
+    "metaDepth"
+  ],
+  "properties": {
+    "apiVersion": {
+      "const": "pmcro.dialogue/v1"
+    },
+    "frameId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "trailId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "cycleId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "parentFrameId": {
+      "type": "string"
+    },
+    "dependsOnFrameIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dependencyKind": {
+      "enum": [
+        "causal",
+        "question",
+        "challenge",
+        "proposal",
+        "response",
+        "handoff",
+        "evidence"
+      ]
+    },
+    "sourceAgent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "targetAgent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "speechAct": {
+      "enum": [
+        "assert",
+        "ask",
+        "challenge",
+        "propose",
+        "respond",
+        "summarize",
+        "handoff",
+        "acknowledge"
+      ]
+    },
+    "utterance": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sourceIntentRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authorityCeilingRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "resourceRefs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidenceRefs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidenceStatus": {
+      "enum": [
+        "CONFIRMED",
+        "NOT-YET-VERIFIED",
+        "NOT-RUN"
+      ]
+    },
+    "mayTriggerNewCycle": {
+      "type": "boolean"
+    },
+    "mayMutateOuterTarget": {
+      "const": false
+    },
+    "notes": {
+      "type": "string"
+    },
+    "subjectIdentityRef": {
+      "type": "string",
+      "minLength": 1
+    },
+    "objectFrameRefs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "metaDepth": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "reflectionOf": {
+      "type": "string"
+    },
+    "instantiatesNextIdentity": {
+      "type": "boolean"
+    }
+  }
+}

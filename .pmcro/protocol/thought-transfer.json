@@ -1,0 +1,67 @@
+{
+  "schema": "pmcro.thought-transfer/v1",
+  "principle": "Preserve original intent immutably; derive progressively more precise interpretations without replacing the source intent.",
+  "philosophicalAnalogies": {
+    "Buber": "agent-to-agent and human-to-agent relation is modeled as addressable I/Thou dialogue rather than anonymous state mutation",
+    "Hofstadter": "the same PMCR-O pattern may recur across macro, phase, child-agent, skill, and frame scales without widening inherited authority",
+    "vonNeumann": "validated patterns may reproduce as new bounded agents/skills/templates from explicit registries and checker evidence rather than copying uncontrolled state"
+  },
+  "notClaims": [
+    "No claim that PMCR-O was derived from these philosophers or that other vendors derived from PMCR-O.",
+    "No claim that an interpretation is the user's hidden thought.",
+    "No private chain-of-thought extraction requirement."
+  ],
+  "frameLaw": {
+    "sourceIntentImmutable": true,
+    "derivedFrameMustReferenceSource": true,
+    "dialogueCreatesNoAuthority": true,
+    "authorityCeilingInherited": true,
+    "phaseJumpByDialogue": false,
+    "crossAgentTrailOwnership": "local-with-references",
+    "linguisticDependency": "addressing another agent creates a traceable dependency edge, not an authority transfer"
+  },
+  "progressiveDisclosure": [
+    "intent frame",
+    "orchestrator interpretation",
+    "validated resource resolution",
+    "phase-local dialogue",
+    "skill/agent disclosure",
+    "execution evidence",
+    "checker verdict",
+    "reflection"
+  ],
+  "speechActs": [
+    "assert",
+    "ask",
+    "challenge",
+    "propose",
+    "respond",
+    "summarize",
+    "handoff",
+    "acknowledge"
+  ],
+  "promotionRule": "A recurring dialogue/procedure becomes a specialized child agent only when it owns independent state, grants, credentials, trail authority, or repeated validated capability boundaries.",
+  "bootstrapLaw": {
+    "selfHosting": true,
+    "rule": "PMCR-O may be applied recursively to the production of each PMCR-O phase product and to interpretation of prior thought frames.",
+    "sameGrammarAtEveryScale": true,
+    "authorityCeilingInherited": true,
+    "productBoundaryInherited": true
+  },
+  "metaReferenceLaw": {
+    "rule": "A meta-frame exists when the current subject-I takes a prior I/frame/cycle as an explicit object of interpretation.",
+    "reflectorSubjectIsNotObjectI": true,
+    "priorIBecomesObject": true,
+    "originalIntentRemainsRoot": true,
+    "metaDepthMonotonicWithinLineage": true,
+    "nextIInstantiation": "owning orchestrator may instantiate the next bounded I only from checked reflection and preserved source-intent lineage",
+    "consciousnessClaim": false
+  },
+  "thoughtTransferFlow": [
+    "I0 source intent / identity frame",
+    "I1 bounded agent acts from interpreted intent",
+    "I2 reflector treats I1 plus its evidence as an object",
+    "I3 owning orchestrator consumes checked reflection and instantiates next bounded I",
+    "repeat while completion criteria and bounds allow"
+  ]
+}

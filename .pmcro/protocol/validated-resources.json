@@ -1,0 +1,21 @@
+{
+  "schema": "pmcro.validated-resource-admissibility/v1",
+  "registryAgent": "resource-registry-agent",
+  "rules": [
+    "existence does not imply validation",
+    "memory/context may suggest resources but cannot make them admissible",
+    "PLAN may rely on a resource only when registry resolution returns admissible=true from a valid registry head",
+    "independent checker PASS is required before registration",
+    "revocation and expiry remove admissibility without deleting provenance",
+    "agent-local trails remain locally owned; registry stores references/digests/checker evidence only"
+  ],
+  "plannerSequence": [
+    "resolve intent",
+    "query validated resource registry",
+    "select bare minimum admissible resources",
+    "plan",
+    "make",
+    "check",
+    "reflect"
+  ]
+}

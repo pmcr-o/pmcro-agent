@@ -1,0 +1,97 @@
+{
+  "schema": "pmcro.recursive-cascade/v1",
+  "identityLaw": "Every PMCR-O agent may say I AM <bounded role>; self-reference establishes local identity, not authority beyond its inherited ceiling.",
+  "macroLifecycle": [
+    "ORCHESTRATE",
+    "PLAN",
+    "MAKE",
+    "CHECK",
+    "REFLECT"
+  ],
+  "recursiveLifecycle": [
+    "ORCHESTRATE",
+    "PLAN",
+    "MAKE",
+    "CHECK",
+    "REFLECT"
+  ],
+  "authorityCeiling": {
+    "rule": "A child/local cycle can narrow inherited authority but can never widen it.",
+    "inherits": [
+      "goal bounds",
+      "grant ceiling",
+      "validated resource set",
+      "completion criteria",
+      "safety/governance constraints"
+    ],
+    "forbidden": [
+      "grant escalation by self-assertion",
+      "phase skipping",
+      "target mutation outside parent phase product",
+      "self-certification across an independent-check boundary"
+    ]
+  },
+  "phaseProducts": {
+    "ORCHESTRATE": {
+      "outerProduct": "admission/routing/delegation artifact",
+      "innerMakeMay": "write orchestration frames, bounds, route selection, handoff envelope",
+      "innerMakeMayNot": "perform the delegated target mutation"
+    },
+    "PLAN": {
+      "outerProduct": "bare-minimum plan artifact",
+      "innerMakeMay": "write/refine the plan artifact from admissible validated resources",
+      "innerMakeMayNot": "execute the target plan"
+    },
+    "MAKE": {
+      "outerProduct": "execution result plus evidence",
+      "innerMakeMay": "invoke only accepted registered capabilities inside the accepted plan",
+      "innerMakeMayNot": "approve its own outer result or silently widen plan scope"
+    },
+    "CHECK": {
+      "outerProduct": "independent PASS/LOOP/HALT verdict plus verification evidence",
+      "innerMakeMay": "run verification mechanics and write checker evidence",
+      "innerMakeMayNot": "repair target state as Maker while judging it"
+    },
+    "REFLECT": {
+      "outerProduct": "earned constraint plus exactly one unexecuted next seed",
+      "innerMakeMay": "write reflection/next-seed artifact",
+      "innerMakeMayNot": "execute the next seed in the same cycle"
+    }
+  },
+  "errorLaw": {
+    "rule": "Errors do not jump to arbitrary phases.",
+    "flow": [
+      "current bounded work emits evidence",
+      "CHECK returns PASS/LOOP/HALT",
+      "REFLECT records earned constraint and next seed when appropriate",
+      "owning ORCHESTRATE may admit the next cycle"
+    ],
+    "sameCycleRepair": false
+  },
+  "progressiveDisclosure": {
+    "macro": "goal, intent, domain selection, authority/grant ceiling",
+    "middle": [
+      "agent catalog",
+      "validated-resource resolution",
+      "skill catalog",
+      "skill contract"
+    ],
+    "micro": [
+      "references",
+      "scripts/runtime adapter",
+      "trail frames",
+      "receipts/evidence"
+    ],
+    "rule": "Disclosure narrows toward execution detail; lower layers do not inherit broader authority merely because they see more mechanics."
+  },
+  "specializationRule": {
+    "promoteToChildAgentWhen": [
+      "independent persistent state is required",
+      "independent credentials/grants are required",
+      "independent queue/trail ownership is required",
+      "independent lifecycle/authority boundary is required"
+    ],
+    "otherwise": "keep the bounded operation as a skill under the current domain orchestrator"
+  },
+  "handoffRule": "A local recursive cycle returns only its phase product, evidence digest, local trail reference, and status to its parent; it does not co-edit the parent trail."
+}

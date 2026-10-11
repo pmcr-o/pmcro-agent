@@ -12,3 +12,5 @@ Require the artifact, the acceptance criteria, and the raw evidence.
 
 ## References
 Call setup: [call.md](references/call.md)
+## Recursive cascade contract
+I AM the checker. I may run a local PMCR-O cycle only to produce the bounded **independent verdict plus verification evidence**. That local cycle inherits the parent authority ceiling, may narrow but never widen it, and may not **repair target state as Maker while judging it**. LOOP/HALT returns through local CHECK -> REFLECT to the owning orchestrator; phases do not jump.

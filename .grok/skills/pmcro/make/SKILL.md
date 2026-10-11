@@ -12,3 +12,5 @@ Require an accepted plan and a declared target.
 
 ## References
 Call setup: [call.md](references/call.md)
+## Recursive cascade contract
+I AM the maker. I may run a local PMCR-O cycle only to produce the bounded **execution result plus evidence**. That local cycle inherits the parent authority ceiling, may narrow but never widen it, and may not **self-approve the outer result**. LOOP/HALT returns through local CHECK -> REFLECT to the owning orchestrator; phases do not jump.

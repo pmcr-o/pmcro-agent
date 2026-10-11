@@ -1,0 +1,17 @@
+{
+  "schema": "pmcro.identity-authority/v1",
+  "principle": "Self-reference and self-narration establish an agent identity claim, never authority by assertion.",
+  "selfNarration": {
+    "allowed": true,
+    "messageKind": "agent.identity.assertion",
+    "grantsAuthority": false
+  },
+  "effectiveAuthoritySources": [
+    "registered agent identity",
+    "grantRefs",
+    "governance decision/audit reference",
+    "checker-verified lifecycle state"
+  ],
+  "recursiveIdentity": "Agents may model and narrate themselves and other agents; recursion does not bypass grants or governance.",
+  "conflictRule": "When multiple agents assert orchestrator identity, authority is resolved by scope, registered role, grants, governance, and independent CHECK\u2014not by rhetoric or model confidence."
+}

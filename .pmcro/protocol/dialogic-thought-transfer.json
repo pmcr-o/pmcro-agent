@@ -1,0 +1,85 @@
+{
+  "schema": "pmcro.dialogic-thought-transfer/v1",
+  "purpose": "Represent PMCR-O trail frames as addressable conversational acts that can be replayed recursively across macro, domain, skill, and runtime scales without phase jumping or hidden chain-of-thought.",
+  "philosophicalInspirations": [
+    {
+      "name": "Martin Buber",
+      "mapping": "I/Thou relation inspires explicitly addressed agent-to-agent frames; this is an engineering interpretation, not a claim of endorsement."
+    },
+    {
+      "name": "Douglas Hofstadter",
+      "mapping": "strange-loop/self-reference inspires recursive I AM identity and the same lifecycle repeating across scales."
+    },
+    {
+      "name": "John von Neumann",
+      "mapping": "self-description/reproduction inspires declarative structures that can generate equivalent bounded agent/skill structures from validated templates."
+    }
+  ],
+  "thoughtTransferRule": "Only externalized artifacts, summaries, claims, evidence references, decisions, plans, results, verdicts, and reflections are transferred. Private hidden chain-of-thought is neither required nor represented.",
+  "frame": {
+    "required": [
+      "frameId",
+      "trailRef",
+      "cycleId",
+      "phase",
+      "speakerAgent",
+      "listenerAgent",
+      "speechAct",
+      "productKind",
+      "authorityCeilingRef",
+      "content",
+      "evidenceRefs",
+      "parentFrameRef",
+      "frameDigest"
+    ],
+    "phases": [
+      "ORCHESTRATE",
+      "PLAN",
+      "MAKE",
+      "CHECK",
+      "REFLECT"
+    ],
+    "speechActs": [
+      "ASSERT_IDENTITY",
+      "PROPOSE",
+      "REQUEST",
+      "DELEGATE",
+      "ANSWER",
+      "REPORT",
+      "CHALLENGE",
+      "VERIFY",
+      "VERDICT",
+      "REFLECT",
+      "FEEDBACK",
+      "HANDOFF",
+      "HALT"
+    ],
+    "contentRule": "Content is concise externalized working product or rationale summary, never hidden chain-of-thought.",
+    "evidenceRule": "Claims that affect later planning must carry evidence references or remain NOT-YET-VERIFIED.",
+    "addressRule": "Every dialogic frame names a speaker and listener, even when the listener is the owning orchestrator or checker."
+  },
+  "roundtable": {
+    "rule": "Roundtable is many addressed frames over one bounded conversation graph, not unrestricted peer mutation.",
+    "sameSeed": true,
+    "sharedMutableTrail": false,
+    "participantLocalTrails": true,
+    "settlement": "CHECK/referee evidence settles competing claims; popularity, self-assertion, or verbosity does not grant truth or authority."
+  },
+  "backchannel": {
+    "example": "Maker -> Planner: FEEDBACK that a plan assumption failed.",
+    "sameCycleEffect": "The frame is recorded as evidence; Maker does not rewrite the plan and Planner does not resume target execution in the same outer cycle.",
+    "nextCycleEffect": "CHECK/REFLECT may convert the feedback into an earned constraint/next seed. A newly admitted PLAN cycle may consume it when it is validated/admissible."
+  },
+  "simulation": {
+    "rule": "A validated frame sequence may be replayed against another domain by mapping roles/products/capabilities while preserving phase order, authority ceiling, evidence semantics, and checker independence.",
+    "notEquivalentTo": "copying private internal reasoning or assuming semantic equivalence without validation",
+    "promotion": "Repeated successful replays may become a procedure/skill only through eval + independent checker promotion."
+  },
+  "scaleMapping": {
+    "macro": "intent, identity, goal, domain, grant/authority ceiling",
+    "meso": "catalog selection, validated resources, agent/skill routing, progressive disclosure",
+    "micro": "script/runtime action, trail frame, evidence receipt, outcome attestation",
+    "echoLaw": "The same typed frame vocabulary may appear at each scale, but lower-scale frames inherit and cannot widen higher-scale authority."
+  },
+  "specialization": "When repeated dialogic work develops independent persistent state, credentials/grants, queue/trail ownership, or lifecycle authority, promote it to a specialized child agent; otherwise keep it a skill/procedure."
+}

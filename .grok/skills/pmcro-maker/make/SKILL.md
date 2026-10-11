@@ -12,3 +12,9 @@ Require an accepted plan and a declared target.
 
 ## References
 Call setup: [call.md](references/call.md)
+## Recursive cascade contract
+I AM the maker. This phase agent is itself the orchestrator of the bounded **maker domain**. It may run an inner `ORCHESTRATE -> PLAN -> MAKE -> CHECK -> REFLECT` cycle to produce its own phase product: **execution result plus evidence**.
+
+The inner cycle inherits the parent goal bounds, grant ceiling, validated-resource set, completion criteria, and governance constraints. It may narrow them but never widen them. The inner MAKE may create this phase product, but it may not **self-approve the outer result**.
+
+If the inner CHECK returns LOOP or HALT, the inner REFLECT records the earned constraint and next seed. Control returns upward; the phase does not jump forward or repair outside its authority.

@@ -80,6 +80,54 @@
       "kind": "runtime-adapter",
       "status": "ADAPTER-DEPENDENT",
       "notes": "Envelope/routing contract is transport-neutral; concrete MCP servers must be separately registered and granted."
+    },
+    {
+      "id": "aspire",
+      "label": "Aspire / agent MCP",
+      "kind": "runtime-adapter",
+      "status": "VALIDATED",
+      "agent": "aspire-agent",
+      "notes": "Aspire CLI inspection, agent MCP planning, and Aspire.Hosting.Python resource planning are registered capabilities."
+    },
+    {
+      "id": "python",
+      "label": "Python runtime",
+      "kind": "runtime-adapter",
+      "status": "VALIDATED",
+      "agent": "python-agent",
+      "notes": "Runtime inspection and workspace-confined script execution are dry-run first."
+    },
+    {
+      "id": "git",
+      "label": "Local Git",
+      "kind": "runtime-adapter",
+      "status": "VALIDATED",
+      "agent": "git-agent",
+      "notes": "Repository inspection and explicit-path local commit are registered; push is not granted."
+    },
+    {
+      "id": "computer-use",
+      "label": "Computer use",
+      "kind": "runtime-adapter",
+      "status": "ADAPTER-DEPENDENT",
+      "agent": "computer-use-agent",
+      "notes": "Procedure recording/replay is validated; live UI control requires a separately registered CONFIRMED adapter."
+    },
+    {
+      "id": "model-gateway",
+      "label": "Model gateway",
+      "kind": "runtime-adapter",
+      "status": "VALIDATED",
+      "agent": "model-gateway-agent",
+      "notes": "UI/API/local model responses normalize to one provider-neutral exchange; v1 bridge is loopback-only."
+    },
+    {
+      "id": "evaluation",
+      "label": "Evaluation / procedure promotion",
+      "kind": "runtime-adapter",
+      "status": "VALIDATED",
+      "agent": "eval-agent",
+      "notes": "Explicit metrics score runs; five trails are the default minimum corpus, not automatic promotion."
     }
   ]
 }

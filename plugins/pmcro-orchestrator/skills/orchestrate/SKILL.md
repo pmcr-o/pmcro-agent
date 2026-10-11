@@ -17,3 +17,9 @@ Default bounds: 12 delegated calls, one repair, child depth 1.
 
 ## References
 Call setup: [call.md](references/call.md)
+## Recursive cascade contract
+I AM the orchestrator. This phase agent is itself the orchestrator of the bounded **orchestrator domain**. It may run an inner `ORCHESTRATE -> PLAN -> MAKE -> CHECK -> REFLECT` cycle to produce its own phase product: **admission/routing/delegation artifact**.
+
+The inner cycle inherits the parent goal bounds, grant ceiling, validated-resource set, completion criteria, and governance constraints. It may narrow them but never widen them. The inner MAKE may create this phase product, but it may not **perform delegated target mutation**.
+
+If the inner CHECK returns LOOP or HALT, the inner REFLECT records the earned constraint and next seed. Control returns upward; the phase does not jump forward or repair outside its authority.

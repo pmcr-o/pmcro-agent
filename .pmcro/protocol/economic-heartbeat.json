@@ -1,0 +1,17 @@
+{
+  "schema": "pmcro.economic-heartbeat/v1",
+  "owner": "economics-agent",
+  "rules": [
+    "the company control plane may remain alive while expensive reasoning agents sleep",
+    "queue, deadline, incident, or earned next-seed signals may request a bounded wake",
+    "budget and entitlement constrain scheduling but never grant authority",
+    "local and self-hosted PMCR-O execution is unmetered by the economics domain",
+    "economics records evidence and policy decisions but never moves money"
+  ],
+  "decisions": [
+    "WAKE",
+    "SLEEP",
+    "RECOVER"
+  ],
+  "authorityGrantedByEconomics": false
+}
