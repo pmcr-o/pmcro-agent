@@ -1,0 +1,48 @@
+name: grok-activation-probe
+
+on:
+  pull_request:
+    paths:
+      - '.grok/**'
+      - '.pmcro/protocol/host-activation.json'
+      - 'eng/verify-host-activation.py'
+      - '.github/workflows/grok-activation-probe.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: verify Grok activation candidate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify universal host activation law
+        run: python eng/verify-host-activation.py
+      - name: Verify Grok bootstrap and proving seed
+        shell: python
+        run: |
+          import json
+          from pathlib import Path
+
+          root = Path('.')
+          activation = (root / '.grok' / 'ACTIVATE.md').read_text(encoding='utf-8')
+          probe = (root / '.grok' / 'PROBE-SEED.md').read_text(encoding='utf-8')
+          contract = json.loads((root / '.pmcro' / 'protocol' / 'host-activation.json').read_text(encoding='utf-8'))
+
+          assert 'I AM the Orchestrator.' in activation
+          assert 'ORCHESTRATE' in activation and 'PLAN' in activation and 'MAKE' in activation and 'CHECK' in activation and 'REFLECT' in activation
+          assert '.grok -> .agents -> .pmcro' in activation
+          assert 'Do not manufacture an error' in probe
+          assert 'Do not repair the defect in the same cycle' in probe
+
+          grok = [x for x in contract.get('provingCandidates', []) if x.get('host') == 'grok']
+          assert len(grok) == 1
+          assert grok[0].get('projection') == '.grok'
+          assert grok[0].get('bootstrap') == '.grok/ACTIVATE.md'
+          assert grok[0].get('status') == 'CANDIDATE'
+          print('GROK-ACTIVATION-CANDIDATE-PASS')

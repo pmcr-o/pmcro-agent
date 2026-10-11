@@ -56,6 +56,13 @@
       "bootstrap": "CLAUDE.md",
       "evidenceRef": "issue:#4 branch:claude/trigger-runtime-v0",
       "status": "CANDIDATE"
+    },
+    {
+      "host": "grok",
+      "projection": ".grok",
+      "bootstrap": ".grok/ACTIVATE.md",
+      "evidenceRef": "issue:#7 branch:grok/recursive-activation-probe",
+      "status": "CANDIDATE"
     }
   ]
 }
