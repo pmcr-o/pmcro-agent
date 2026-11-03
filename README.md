@@ -2,7 +2,7 @@
 
 A reusable PMCR-O repository template and executable learning environment for bounded autonomous agent systems.
 
-**Authority:** `.host -> .agents -> .pmcro`
+**Authored source:** `.agents/` · **Runtime state/evidence:** `.pmcro/` · **Host adapters:** generated provider projections
 
 **Lifecycle:** `ORCHESTRATE -> PLAN -> MAKE -> CHECK -> REFLECT`
 
@@ -17,6 +17,8 @@ A reusable PMCR-O repository template and executable learning environment for bo
 - Action-powered learning: `./eng/learn.ps1 -Action list` (local workflow execution delegates to `github-agent/local-actions`)
 - Actions accountability: `docs/ACTIONS-ACCOUNTABILITY.md`
 - Architecture: `docs/ARCHITECTURE.md`
+- Cross-platform service and invocation architecture: `docs/ARCHITECTURE-CROSS-PLATFORM.md`
+- Provider-neutral output profiles: `docs/PRESENTATION-PROFILES.md`
 - Thought Transfer / linguistic strange loop: `docs/THOUGHT-TRANSFER.md`
 - Behavioral Intent Programming: `docs/BEHAVIORAL-INTENT-PROGRAMMING.md`
 - Recursive I-context: `docs/I-AM.md`
