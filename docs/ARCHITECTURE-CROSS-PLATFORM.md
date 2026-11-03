@@ -44,7 +44,7 @@ Each parent-to-child request carries:
 - effective grant/authority ceiling and policy references;
 - optional reasoning override and presentation-profile reference.
 
-The child returns the versioned contract at `.agents/contracts/agent-invocation-result.schema.json`. The result includes:
+The child accepts the versioned request at `.agents/contracts/agent-invocation-request.schema.json` and returns `.agents/contracts/agent-invocation-result.schema.json`. The result includes:
 - agent identity/status and nested trail reference;
 - O-Mode strategy, family, rationale and selection reference;
 - skills proposed for execution;
