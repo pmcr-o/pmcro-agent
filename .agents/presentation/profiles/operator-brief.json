@@ -1,0 +1,40 @@
+{
+  "apiVersion": "pmcro.ai/v1",
+  "kind": "OutputProfile",
+  "metadata": {
+    "id": "operator-brief",
+    "name": "Operator Brief",
+    "description": "Decision-oriented updates for an operator or accountable reviewer.",
+    "version": "1.0.0"
+  },
+  "spec": {
+    "audience": "operator",
+    "verbosity": "concise",
+    "format": {
+      "preferred": "markdown",
+      "headings": true,
+      "tables": false,
+      "codeBlocks": false
+    },
+    "sections": ["decision", "status", "evidence", "risks", "required-action"],
+    "styleRules": [
+      "Lead with the requested decision or outcome.",
+      "Separate confirmed facts from assumptions and proposed work.",
+      "Name the exact approval or operator action required.",
+      "Avoid implementation detail unless it changes a decision."
+    ],
+    "semanticInvariants": {
+      "mayChangeAuthority": false,
+      "mayChangeApproval": false,
+      "mayChangeLifecycleVerdict": false,
+      "mayOmitRequiredEvidence": false,
+      "mayInventExecution": false
+    },
+    "hostProjectionHints": {
+      "claude-code": "Generate a selectable output-style projection when supported.",
+      "vscode": "Inject this profile through the host adapter as presentation context.",
+      "cursor": "Project as agent or rule presentation instructions.",
+      "codex": "Project as scoped instructions; do not assume a native output-style selector."
+    }
+  }
+}
