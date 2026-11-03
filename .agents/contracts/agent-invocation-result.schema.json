@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pmcro.ai/schemas/agent-invocation-result/v1",
+  "title": "PMCR-O Agent Invocation Result",
+  "description": "Provider-neutral result returned by a lifecycle agent to its invoking parent service.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contractVersion",
+    "invocation",
+    "agent",
+    "reasoning",
+    "intent",
+    "executionRecord",
+    "result"
+  ],
+  "properties": {
+    "contractVersion": { "const": "pmcro.agent-invocation-result/v1" },
+    "invocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["invocationId", "agentRef", "cycleId"],
+      "properties": {
+        "invocationId": { "type": "string", "minLength": 1 },
+        "parentInvocationId": { "type": ["string", "null"] },
+        "cycleId": { "type": "string", "minLength": 1 },
+        "runId": { "type": ["string", "null"] },
+        "agentRef": { "type": "string", "pattern": "^@[a-z0-9-]+$" },
+        "serviceRef": { "type": ["string", "null"] },
+        "nestedTrailRef": { "type": ["string", "null"] }
+      }
+    },
+    "agent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "status"],
+      "properties": {
+        "role": { "enum": ["orchestrator", "planner", "maker", "checker", "reflector"] },
+        "status": { "enum": ["completed", "proposed", "blocked", "failed", "halted"] },
+        "summary": { "type": "string" }
+      }
+    },
+    "reasoning": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["selectionRef", "strategyId", "rationale"],
+      "properties": {
+        "selectionRef": { "type": ["string", "null"] },
+        "strategyId": { "type": "string", "minLength": 1 },
+        "family": { "type": ["string", "null"] },
+        "rationale": { "type": "string", "minLength": 1 },
+        "modelProfile": { "type": ["string", "null"] },
+        "operatorOverride": { "type": ["string", "null"] }
+      }
+    },
+    "intent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["skillsToExecute", "callsToMake", "checkCriteria", "reflectIntent"],
+      "properties": {
+        "skillsToExecute": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["skillRef", "purpose"],
+            "properties": {
+              "skillRef": { "type": "string", "minLength": 1 },
+              "purpose": { "type": "string", "minLength": 1 },
+              "argumentsRef": { "type": ["string", "null"] }
+            }
+          }
+        },
+        "callsToMake": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["callId", "kind", "target", "operation", "argumentsRef"],
+            "properties": {
+              "callId": { "type": "string", "minLength": 1 },
+              "kind": { "enum": ["agent", "tool", "mcp", "api", "workflow", "service"] },
+              "target": { "type": "string", "minLength": 1 },
+              "operation": { "type": "string", "minLength": 1 },
+              "argumentsRef": { "type": ["string", "null"] },
+              "schemaRef": { "type": ["string", "null"] },
+              "approvalClass": { "enum": ["policy-eligible", "human-required", "prohibited", "unclassified"] }
+            }
+          }
+        },
+        "checkCriteria": { "type": "array", "items": { "type": "string" } },
+        "reflectIntent": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "presentationProfileRef": { "type": ["string", "null"] }
+      }
+    },
+    "executionRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authorizedCalls", "executedCalls", "evidenceRefs"],
+      "properties": {
+        "authorizedCalls": { "type": "array", "items": { "type": "string" } },
+        "executedCalls": { "type": "array", "items": { "type": "string" } },
+        "deniedCalls": { "type": "array", "items": { "type": "string" } },
+        "approvalReceiptRefs": { "type": "array", "items": { "type": "string" } },
+        "evidenceRefs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["disposition", "summary"],
+      "properties": {
+        "disposition": { "enum": ["proposed", "accept", "retry", "reject", "halt", "partial"] },
+        "summary": { "type": "string" },
+        "reason": { "type": ["string", "null"] },
+        "readyForParentGate": { "type": "boolean" }
+      }
+    }
+  }
+}
