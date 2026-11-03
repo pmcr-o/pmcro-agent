@@ -1,0 +1,42 @@
+{
+  "apiVersion": "pmcro.ai/v1",
+  "kind": "LifecycleServiceBindings",
+  "description": "Deployment-neutral mapping between PMCR-O agent identities and their dedicated service projects. Endpoint and transport settings are supplied by deployment configuration.",
+  "services": [
+    {
+      "serviceId": "orchestrator",
+      "project": "ProjectName.OrchestratorService",
+      "agentRef": "@orchestrator-agent",
+      "role": "orchestrator",
+      "responsibility": "Own parent cycle, resolve child services, gate returned intents and dispatch queued seeds."
+    },
+    {
+      "serviceId": "planner",
+      "project": "ProjectName.PlannerService",
+      "agentRef": "@planner-agent",
+      "role": "planner",
+      "responsibility": "Produce PlanFrame and a structured execution manifest."
+    },
+    {
+      "serviceId": "maker",
+      "project": "ProjectName.MakerService",
+      "agentRef": "@maker-agent",
+      "role": "maker",
+      "responsibility": "Execute an authorized PlanFrame and return artifacts plus execution evidence."
+    },
+    {
+      "serviceId": "checker",
+      "project": "ProjectName.CheckerService",
+      "agentRef": "@checker-agent",
+      "role": "checker",
+      "responsibility": "Independently evaluate evidence against acceptance criteria without repairing the subject."
+    },
+    {
+      "serviceId": "reflector",
+      "project": "ProjectName.ReflectorService",
+      "agentRef": "@reflector-agent",
+      "role": "reflector",
+      "responsibility": "Record learning, limitations, earned constraints and an unexecuted next-seed proposal."
+    }
+  ]
+}

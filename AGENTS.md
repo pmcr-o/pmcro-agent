@@ -1,7 +1,7 @@
 # PMCR-O agent contract
 
 1. Read `.agents/project.json`, `.agents/catalog.json`, and `.agents/routing.json`.
-2. Treat `.pmcro` as canonical authority. Host folders are projections only.
+2. Treat `.agents/` as the authored, provider-neutral genome and source of truth. Host-specific folders are generated projections. Treat `.pmcro/` as runtime state, queue/checkpoint state, approvals, trails and evidence. Existing `.pmcro/plugins/` packages are compatibility assets until their declarations have been deliberately migrated and verified.
 3. Route only registered capabilities and preserve grant boundaries.
 4. ORCHESTRATE -> PLAN -> MAKE -> CHECK -> REFLECT. Every phase agent may recursively use the same lifecycle inside its bounded phase domain; the inner cycle inherits and may narrow but never widen the parent authority ceiling. Maker never self-certifies.
 5. Preserve CONFIRMED / NOT-YET-VERIFIED / NOT-RUN.

@@ -1,0 +1,40 @@
+{
+  "apiVersion": "pmcro.ai/v1",
+  "kind": "OutputProfile",
+  "metadata": {
+    "id": "audit-evidence",
+    "name": "Audit Evidence",
+    "description": "Evidence-first output for Checker reports, governance decisions and trail reviews.",
+    "version": "1.0.0"
+  },
+  "spec": {
+    "audience": "checker-and-auditor",
+    "verbosity": "detailed",
+    "format": {
+      "preferred": "markdown",
+      "headings": true,
+      "tables": true,
+      "codeBlocks": true
+    },
+    "sections": ["criterion", "evidence-reference", "observation", "verdict", "limitation", "disposition"],
+    "styleRules": [
+      "Map each acceptance criterion to its actual evidence.",
+      "Preserve NOT-RUN, NOT-YET-VERIFIED and CONFIRMED as distinct states.",
+      "State missing, conflicting or insufficient evidence explicitly.",
+      "Never convert a tool response or agent assertion into proof without verification."
+    ],
+    "semanticInvariants": {
+      "mayChangeAuthority": false,
+      "mayChangeApproval": false,
+      "mayChangeLifecycleVerdict": false,
+      "mayOmitRequiredEvidence": false,
+      "mayInventExecution": false
+    },
+    "hostProjectionHints": {
+      "claude-code": "Generate a selectable output-style projection when supported.",
+      "vscode": "Inject this profile through the host adapter as presentation context.",
+      "cursor": "Project as agent or rule presentation instructions.",
+      "codex": "Project as scoped instructions; do not assume a native output-style selector."
+    }
+  }
+}
