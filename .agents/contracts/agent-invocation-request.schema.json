@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pmcro.ai/schemas/agent-invocation-request/v1",
+  "title": "PMCR-O Agent Invocation Request",
+  "description": "Provider-neutral request accepted by a role service to resolve and invoke one declared PMCR-O agent.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contractVersion", "invocation", "input", "authority", "reasoning"],
+  "properties": {
+    "contractVersion": { "const": "pmcro.agent-invocation-request/v1" },
+    "invocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["invocationId", "cycleId", "agentRef"],
+      "properties": {
+        "invocationId": { "type": "string", "minLength": 1 },
+        "parentInvocationId": { "type": ["string", "null"] },
+        "cycleId": { "type": "string", "minLength": 1 },
+        "runId": { "type": ["string", "null"] },
+        "goalId": { "type": ["string", "null"] },
+        "agentRef": { "type": "string", "pattern": "^@[a-z0-9-]+$" },
+        "requestedService": { "type": ["string", "null"] }
+      }
+    },
+    "input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["seedIntent"],
+      "properties": {
+        "seedIntent": { "type": "string", "minLength": 1 },
+        "rolePayloadRef": { "type": ["string", "null"] },
+        "contextRefs": { "type": "array", "items": { "type": "string" } },
+        "evidenceRefs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ceilingRef", "grantRefs", "policyRefs"],
+      "properties": {
+        "ceilingRef": { "type": ["string", "null"] },
+        "grantRefs": { "type": "array", "items": { "type": "string" } },
+        "policyRefs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "reasoning": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["allowedFamilies", "operatorOverride", "modelProfile"],
+      "properties": {
+        "allowedFamilies": { "type": "array", "items": { "type": "string" } },
+        "operatorOverride": { "type": ["string", "null"] },
+        "modelProfile": { "type": ["string", "null"] }
+      }
+    },
+    "presentationProfileRef": { "type": ["string", "null"] },
+    "deadlineUtc": { "type": ["string", "null"], "format": "date-time" },
+    "idempotencyKey": { "type": ["string", "null"] }
+  }
+}
