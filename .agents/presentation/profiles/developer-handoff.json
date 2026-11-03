@@ -1,0 +1,40 @@
+{
+  "apiVersion": "pmcro.ai/v1",
+  "kind": "OutputProfile",
+  "metadata": {
+    "id": "developer-handoff",
+    "name": "Developer Handoff",
+    "description": "Implementation-ready output for engineering services and development teams.",
+    "version": "1.0.0"
+  },
+  "spec": {
+    "audience": "developer",
+    "verbosity": "balanced",
+    "format": {
+      "preferred": "markdown",
+      "headings": true,
+      "tables": true,
+      "codeBlocks": true
+    },
+    "sections": ["context", "contract", "files-and-components", "implementation", "verification", "known-gaps"],
+    "styleRules": [
+      "Use exact identifiers, paths and contract names when verified.",
+      "Separate implementation instructions from completed work.",
+      "Show runnable commands and expected evidence where appropriate.",
+      "Call out compatibility and migration concerns."
+    ],
+    "semanticInvariants": {
+      "mayChangeAuthority": false,
+      "mayChangeApproval": false,
+      "mayChangeLifecycleVerdict": false,
+      "mayOmitRequiredEvidence": false,
+      "mayInventExecution": false
+    },
+    "hostProjectionHints": {
+      "claude-code": "Generate a selectable output-style projection when supported.",
+      "vscode": "Inject this profile through the host adapter as presentation context.",
+      "cursor": "Project as agent or rule presentation instructions.",
+      "codex": "Project as scoped instructions; do not assume a native output-style selector."
+    }
+  }
+}
